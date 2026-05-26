@@ -40,7 +40,7 @@ Check `specs/MEMORY.md` for a framework entry first — skip detection if alread
 ## Wrap up
 
 6. Append file references at the bottom of the spec
-7. Update `specs/MEMORY.md` with any new project-wide decisions — each entry short, references pattern or existing file, no specific code. Skip if nothing new.
+7. Update `specs/MEMORY.md` with any new project-wide decisions — each entry short, references pattern or existing file, no specific code. Before adding, check `CLAUDE.md` if it exists: skip any entry already covered there. Skip entirely if nothing new.
 8. Move file from `specs/design/` to `specs/implemented/`
 9. Update index path
 
