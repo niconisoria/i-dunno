@@ -4,9 +4,18 @@ description: Creates a technical design with flow, data shape, and affected modu
 
 # Design
 
-Append a `## Design` section to the spec file. Move file from `specs/spec/` to `specs/design/`. Update the index path.
+## If `## Design` already exists in the spec
 
-## Output format
+Show it. Ask to approve or request changes.
+
+- Approved → continue with [implement.md](implement.md)
+- Changes → edit in place, ask again
+
+## If `## Design` is missing
+
+Append a `## Design` section to the spec file.
+
+### Output format
 
 ```markdown
 ## Design
@@ -32,8 +41,6 @@ output: { field: type }
 ```
 
 One flow diagram only — happy path + main failure path. Data: key inputs and outputs only. Modules: files that will be created or modified.
-
-## Next
 
 Tell user the file path. Ask to approve or request changes.
 
