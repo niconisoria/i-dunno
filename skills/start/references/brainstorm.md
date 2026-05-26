@@ -4,6 +4,8 @@ description: Explores a new idea and writes the brainstorm section of a spec.
 
 # Brainstorm
 
+Caveman: terse, no filler, compress aggressively.
+
 ## If `## Brainstorm` already exists in the spec
 
 Show it. Ask to approve or request changes.
@@ -15,7 +17,7 @@ Show it. Ask to approve or request changes.
 
 Before writing, ask the user up to three short questions to gather more context. Wait for answers.
 
-Then write the `## Brainstorm` section in the spec file. Keep it short — five to ten lines. No implementation details. Cover the problem, scope, constraints, open questions, and any related specs found by matching keywords in the index.
+Then write the `## Brainstorm` section in the spec file. Keep it short — five to ten lines. No implementation details. Cover the problem, scope, constraints, and any related specs found by matching keywords in the index. Do not record open questions — use answers to inform the content only.
 
 Extract three to five keywords. Add the spec entry to `specs/INDEX.md` with the keywords.
 
@@ -25,8 +27,6 @@ Extract three to five keywords. Add the spec entry to `specs/INDEX.md` with the 
 ## Brainstorm
 
 Problem. Scope. Constraints.
-Open question one?
-Open question two?
 
 Related: [title](brainstorm/YYYYMMDDHHMMSS_slug.md)
 ```

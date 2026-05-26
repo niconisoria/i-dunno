@@ -25,7 +25,7 @@ Run `/i-dunno:start "user notifications"`:
 
 - [ ] Asks up to 3 clarifying questions (question mark format)
 - [ ] Waits for user answers before writing
-- [ ] Brainstorm section is caveman — no filler
+- [ ] Brainstorm section is caveman — no filler, no open questions recorded
 - [ ] Keywords extracted and added to INDEX.md
 - [ ] Related field populated (check against INDEX.md keywords)
 - [ ] On approve: file moves to `specs/spec/`, index path updated
@@ -47,7 +47,7 @@ Run `/i-dunno:start 20260526100000` → approve brainstorm:
 
 Run `/i-dunno:start 20260526120000` (notifications, already in design):
 
-- [ ] Flow diagram present (Unicode box-drawing, not Mermaid)
+- [ ] Flow diagram uses Unicode box-drawing characters only
 - [ ] Covers happy path + at least one failure path
 - [ ] Data section has input + output shapes
 - [ ] Modules section lists files to create/modify

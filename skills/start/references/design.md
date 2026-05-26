@@ -4,6 +4,8 @@ description: Creates a technical design with flow, data shape, and affected modu
 
 # Design
 
+Caveman: terse, no filler, compress aggressively.
+
 ## If `## Design` already exists in the spec
 
 Show it. Ask to approve or request changes.
@@ -40,7 +42,7 @@ output: { field: type }
 - `path/to/file` — what changes
 ```
 
-One flow diagram only — happy path + main failure path. Data: key inputs and outputs only. Modules: files that will be created or modified.
+One flow diagram only — happy path + main failure path. Use only Unicode box-drawing characters (`┌ ─ ┐ │ └ ┘ ──▶`). No other diagram formats. Data: key inputs and outputs only. Modules: files that will be created or modified.
 
 Tell user the file path. Ask to approve or request changes.
 

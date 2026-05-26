@@ -1,0 +1,6 @@
+app/
+test/
+specs/brainstorm/[0-9]*.md
+specs/spec/[0-9]*.md
+specs/design/[0-9]*.md
+specs/implemented/[0-9]*.md

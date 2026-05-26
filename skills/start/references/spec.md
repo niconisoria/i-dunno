@@ -4,6 +4,8 @@ description: Turns an approved brainstorm into a user story with acceptance crit
 
 # Spec
 
+Caveman: terse, no filler, compress aggressively.
+
 ## If `## Story` already exists in the spec
 
 Show it. Ask to approve or request changes.
@@ -15,11 +17,16 @@ Show it. Ask to approve or request changes.
 
 Append a `## Story` section to the spec file.
 
-Describe behavior from the user's point of view — what it does, not how. Each criterion on one line. Check the `Related` field in the Brainstorm section and add any referenced specs to the `refs` field in the frontmatter.
+Describe behavior from the user's point of view — what it does, not how. Each criterion on one line. Check the `Related` field in the Brainstorm section and add any referenced spec paths to the `refs` field in the frontmatter as a YAML array of file paths.
 
 ### Output format
 
 ```markdown
+---
+title: Title
+refs: [spec/20260526110000_slug.md, brainstorm/20260526100000_other.md]
+---
+
 ## Story
 
 As [role], want [goal], so [benefit].
