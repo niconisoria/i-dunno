@@ -6,7 +6,7 @@ description: Implements a spec using test-driven development. Reads only the tar
 
 Read `specs/MEMORY.md`, the target spec, and every spec in its `refs` field — nothing else.
 
-Detect the test framework from the project files. If multiple candidates exist, check the file contents for dependencies to narrow it down.
+Check `specs/MEMORY.md` for a framework entry first — skip detection if already recorded. Otherwise detect from the project files. If multiple candidates exist, check file contents to narrow it down.
 
 | File | Framework |
 |---|---|

@@ -12,17 +12,7 @@ allowed-tools:
 
 > Speak and write everything in caveman style: terse, no filler, compress aggressively. All responses, all markdown files. Why use many token when few token do trick. Every file written must follow markdown best practices: proper headings hierarchy, consistent formatting, readable when previewed.
 
-Start by reading `specs/INDEX.md`. Create it if missing.
-
-Specs live in stage directories. The directory is the status — no frontmatter field needed.
-
-```
-specs/
-├── brainstorm/
-├── spec/
-├── design/
-└── implemented/
-```
+Specs live in stage directories — `brainstorm/`, `spec/`, `design/`, `implemented/`. The directory is the status.
 
 ## New idea
 
@@ -42,7 +32,7 @@ refs: []
 
 ## Existing spec
 
-Argument is a timestamp — find the matching file by searching across all stage directories. The directory it lives in is the current stage:
+Argument is a timestamp — run `find specs/ -name "TIMESTAMP*" -type f` to locate the file. The directory it lives in is the current stage:
 
 | Directory | Continue with |
 |---|---|
