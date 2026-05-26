@@ -1,26 +1,37 @@
 ---
-description: Creates a flow diagram showing how the feature works technically.
+description: Creates a technical design with flow, data shape, and affected modules.
 ---
 
 # Design
 
-Append a `## Flow` section to the spec file. Update the index path.
-
-Draw a Unicode box-drawing diagram. Cover the happy path and the main failure path. One diagram only.
+Append a `## Design` section to the spec file. Move file from `specs/spec/` to `specs/design/`. Update the index path.
 
 ## Output format
 
 ```markdown
-## Flow
+## Design
+
+### Flow
 
 ┌───────┐     ┌──────────┐     ┌─────────┐
 │ start │ ──▶ │ validate │ ──▶ │ success │
 └───────┘     └──────────┘     └─────────┘
-                    │
-               ┌─────────┐
-               │  error  │
-               └─────────┘
+                   │
+              ┌─────────┐
+              │  error  │
+              └─────────┘
+
+### Data
+
+input: { field: type }
+output: { field: type }
+
+### Modules
+
+- `path/to/file` — what changes
 ```
+
+One flow diagram only — happy path + main failure path. Data: key inputs and outputs only. Modules: files that will be created or modified.
 
 ## Next
 
