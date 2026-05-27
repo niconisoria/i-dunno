@@ -56,8 +56,8 @@ Check `specs/MEMORY.md` for a framework entry first — skip detection if alread
 [filename](path/to/file) [test_filename](path/to/test_file)
 ```
 
-7. Update `specs/MEMORY.md` with any new project-wide decisions — each entry short, references pattern or existing file, no specific code. Check `CLAUDE.md` if it exists: skip any entry already covered there. Skip entirely if nothing new.
-8. Append `## Summary` to the spec — two to four sentences: what built, how works, key decisions
+7. Update `specs/MEMORY.md` with new project-wide decisions only. Each entry: short, references pattern or existing file, no specific code. Before writing any entry, read `CLAUDE.md` — if the decision is already there, do not write it at all, not even with a reference. Skip the whole step if nothing is genuinely new.
+8. Append `## Summary` to the spec — two to four caveman sentences: what built, how works, key decisions. No filler.
 9. Move file from `specs/design/` to `specs/implemented/`
 10. Update index: change path from `design/` to `implemented/`
 11. Tell user the spec path. Ask to review in editor.
