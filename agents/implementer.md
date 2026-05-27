@@ -46,7 +46,7 @@ Check `specs/MEMORY.md` for a framework entry first — skip detection if alread
 
 3. Write implementation to make them pass
 4. Ask user to run tests — confirm all pass before continuing
-5. Spawn `i-dunno:reviewer` — pass spec path + all implementation file paths. If issues returned, fix them and re-spawn until `LGTM`.
+5. Always spawn `i-dunno:reviewer` — pass spec path + all implementation file paths. If issues returned, fix them and re-spawn until `LGTM`.
 6. Ask user to manually validate each criterion in the Story section
 
 ## Wrap up
