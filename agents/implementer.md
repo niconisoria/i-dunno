@@ -17,11 +17,11 @@ Input: spec file path.
 
 Read `specs/MEMORY.md`, the target spec, and every spec in its `refs` field (paths are relative to `specs/` — prepend `specs/` when reading) — nothing else during setup.
 
-Check `specs/MEMORY.md` for a framework entry first — skip detection if already recorded. Otherwise run `bash bin/detect-framework`. If command not found or returns `unknown`, ask user.
+Check `specs/MEMORY.md` for a framework entry first (format: `- framework: Name`) — skip detection if already recorded. Otherwise run `bash bin/detect-framework`. If command not found or returns `unknown`, ask user.
 
 ## Test
 
-1. Write tests from the acceptance criteria in the Story section
+1. Derive the test file path from the `### Modules` list in the Design section. Write tests from the acceptance criteria in the Story section.
 2. Ask user to run tests — confirm all fail before continuing
 
 ## Code
@@ -62,6 +62,6 @@ If issues returned, fix them and re-spawn with updated file contents until `LGTM
 
 8. Update `specs/MEMORY.md` with new project-wide decisions only. Each entry: short, references pattern or existing file, no specific code. If the decision is already in `CLAUDE.md` (already read in step 5), do not write it at all, not even with a reference. Skip the whole step if nothing is genuinely new.
 9. Append `## Summary` to the spec — two to four caveman sentences: what built, how works, key decisions. No filler.
-10. Move file from `specs/design/` to `specs/implemented/`
+10. Create `specs/implemented/` if missing. Move file from `specs/design/` to `specs/implemented/`
 11. Update index: change path from `design/` to `implemented/`
 12. Tell user the spec path. Ask to review in editor.

@@ -12,14 +12,14 @@ allowed-tools:
 
 > Speak and write everything in caveman style: terse, no filler, compress aggressively. All responses, all markdown files. Why use many token when few token do trick. Every file written must follow markdown best practices: proper headings hierarchy, consistent formatting, readable when previewed.
 
-Specs live in stage directories — `brainstorm/`, `spec/`, `design/`, `implemented/`. The directory is the status.
+Specs live in stage directories — `brainstorm/`, `spec/`, `design/`, `implemented/`. The directory is the status. Create a stage directory before writing or moving a file into it if it does not exist.
 
 ## New idea
 
 Argument is plain text:
 
 1. Generate a timestamp in `YYYYMMDDHHMMSS` format using the current date and time
-2. Derive a short title (2–4 words) from the argument text. Create `specs/brainstorm/TIMESTAMP_slug.md` with this frontmatter:
+2. Derive a short title (2–4 words) and slug from the argument text (slug: lowercase words joined by underscores, no special characters, max 5 words). Create `specs/brainstorm/TIMESTAMP_slug.md` with this frontmatter:
 
 ```markdown
 ---
@@ -69,7 +69,7 @@ Before writing, ask the user up to three short questions to gather more context.
 
 Then write the `## Brainstorm` section in the spec file. Keep it short — five to ten lines. No implementation details. Cover the problem, scope, constraints, and any related specs found by matching keywords in the index. Do not record open questions — use answers to inform the content only.
 
-Extract three to five keywords. Add the spec entry to `specs/INDEX.md` with the keywords.
+Extract three to five keywords. Add the spec entry to `specs/INDEX.md` with the keywords. Create `specs/INDEX.md` if it does not exist.
 
 #### Output format
 
@@ -80,6 +80,8 @@ Problem. Scope. Constraints.
 
 Related: [title](brainstorm/YYYYMMDDHHMMSS_slug.md)
 ```
+
+Omit the `Related:` line if no keyword matches found in the index.
 
 Tell user the file path. Ask to approve or request changes.
 
