@@ -17,25 +17,7 @@ Input: spec file path.
 
 Read `specs/MEMORY.md`, the target spec, and every spec in its `refs` field — nothing else.
 
-Check `specs/MEMORY.md` for a framework entry first — skip detection if already recorded. Otherwise detect from project files:
-
-| File | Framework |
-|---|---|
-| `package.json` | Jest, Vitest, Mocha, Jasmine, AVA — check `devDependencies` |
-| `Gemfile` | RSpec or Minitest |
-| `pyproject.toml` / `setup.py` / `pytest.ini` | pytest or unittest |
-| `go.mod` | Go test |
-| `Cargo.toml` | Cargo test |
-| `pom.xml` | JUnit or TestNG |
-| `build.gradle` / `build.gradle.kts` | JUnit 5 or Kotest |
-| `composer.json` | PHPUnit or Pest |
-| `*.csproj` / `*.sln` | xUnit, NUnit, or MSTest — check project references |
-| `Package.swift` | XCTest |
-| `mix.exs` | ExUnit |
-| `pubspec.yaml` | Flutter test or dart test |
-| `build.sbt` | ScalaTest or MUnit |
-| `project.clj` / `deps.edn` | clojure.test |
-| None found | Ask user |
+Check `specs/MEMORY.md` for a framework entry first — skip detection if already recorded. Otherwise run `bash bin/detect-framework`. If command not found or returns `unknown`, ask user.
 
 ## Test
 
@@ -46,7 +28,28 @@ Check `specs/MEMORY.md` for a framework entry first — skip detection if alread
 
 3. Write implementation to make them pass
 4. Ask user to run tests — confirm all pass before continuing
-5. Always spawn `i-dunno:reviewer` — pass spec path + all implementation file paths. If issues returned, fix them and re-spawn until `LGTM`.
+5. Read `CLAUDE.md` (if not already read) and `specs/MEMORY.md`. Always spawn `i-dunno:reviewer` — pass all content inline in the prompt, not as file paths:
+
+```
+spec:
+<full spec file content>
+
+claude_md:
+<CLAUDE.md content, or "(none)">
+
+memory_md:
+<MEMORY.md content>
+
+files:
+[path/to/impl_file]
+<content>
+
+[path/to/test_file]
+<content>
+```
+
+If issues returned, fix them and re-spawn with updated file contents until `LGTM`.
+
 6. Ask user to manually validate each criterion in the Story section
 
 ## Wrap up
@@ -57,7 +60,7 @@ Check `specs/MEMORY.md` for a framework entry first — skip detection if alread
 [filename](path/to/file) [test_filename](path/to/test_file)
 ```
 
-8. Update `specs/MEMORY.md` with new project-wide decisions only. Each entry: short, references pattern or existing file, no specific code. Before writing any entry, read `CLAUDE.md` — if the decision is already there, do not write it at all, not even with a reference. Skip the whole step if nothing is genuinely new.
+8. Update `specs/MEMORY.md` with new project-wide decisions only. Each entry: short, references pattern or existing file, no specific code. If the decision is already in `CLAUDE.md` (already read in step 5), do not write it at all, not even with a reference. Skip the whole step if nothing is genuinely new.
 9. Append `## Summary` to the spec — two to four caveman sentences: what built, how works, key decisions. No filler.
 10. Move file from `specs/design/` to `specs/implemented/`
 11. Update index: change path from `design/` to `implemented/`
