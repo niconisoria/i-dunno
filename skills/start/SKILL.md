@@ -19,11 +19,11 @@ Specs live in stage directories — `brainstorm/`, `spec/`, `design/`, `implemen
 Argument is plain text:
 
 1. Generate a timestamp in `YYYYMMDDHHMMSS` format using the current date and time
-2. Create `specs/brainstorm/TIMESTAMP_slug.md` with this frontmatter:
+2. Derive a short title (2–4 words) from the argument text. Create `specs/brainstorm/TIMESTAMP_slug.md` with this frontmatter:
 
 ```markdown
 ---
-title: Short title
+title: Derived title
 refs: []
 ---
 ```
@@ -101,9 +101,9 @@ Show it. Ask to approve or request changes.
 
 ### If `## Story` is missing
 
-Append a `## Story` section to the spec file.
+Edit the frontmatter to update the `refs` field with any spec paths found in the `Related` field of the Brainstorm section (YAML inline array of paths relative to `specs/`). Then append a `## Story` section to the spec file.
 
-Describe behavior from the user's point of view — what it does, not how. Each criterion on one line. Check the `Related` field in the Brainstorm section and add any referenced spec paths to the `refs` field in the frontmatter as a YAML array of file paths.
+Describe behavior from the user's point of view — what it does, not how. Each criterion on one line.
 
 #### Output format
 
@@ -124,7 +124,7 @@ AC:
 
 Tell user the file path. Ask to approve or request changes.
 
-- Approved → move file from `specs/spec/` to `specs/design/`, update index path, continue with **Design stage** below
+- Approved → move file from `specs/spec/` to `specs/design/`, update index path and add `refs:` to the index entry if refs were added, continue with **Design stage** below
 - Changes → edit in place, ask again
 
 ---

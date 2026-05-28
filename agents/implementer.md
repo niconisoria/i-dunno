@@ -15,7 +15,7 @@ Caveman mode: terse, no filler, compress aggressively.
 
 Input: spec file path.
 
-Read `specs/MEMORY.md`, the target spec, and every spec in its `refs` field — nothing else.
+Read `specs/MEMORY.md`, the target spec, and every spec in its `refs` field (paths are relative to `specs/` — prepend `specs/` when reading) — nothing else during setup.
 
 Check `specs/MEMORY.md` for a framework entry first — skip detection if already recorded. Otherwise run `bash bin/detect-framework`. If command not found or returns `unknown`, ask user.
 
@@ -28,7 +28,7 @@ Check `specs/MEMORY.md` for a framework entry first — skip detection if alread
 
 3. Write implementation to make them pass
 4. Ask user to run tests — confirm all pass before continuing
-5. Read `CLAUDE.md` (if not already read) and `specs/MEMORY.md`. Always spawn `i-dunno:reviewer` — pass all content inline in the prompt, not as file paths:
+5. Read `CLAUDE.md` (if not already read). Always spawn `i-dunno:reviewer` — pass all content inline in the prompt, not as file paths:
 
 ```
 spec:
