@@ -171,7 +171,7 @@ output: { field: type }
 - `path/to/file` — what changes
 ```
 
-One flow diagram only — happy path + main failure path. Use only Unicode box-drawing characters (`┌ ─ ┐ │ └ ┘ ──▶`). No other diagram formats. Data: key inputs and outputs only. Modules: files that will be created or modified.
+One flow diagram only — happy path + main failure path. Use only Unicode box-drawing characters (`┌ ─ ┐ │ └ ┘ ──▶`). No other diagram formats. Data: key inputs and outputs only. Modules: all files that will be created or modified, including test files.
 
 Tell user the file path. Ask to approve or request changes.
 
@@ -184,4 +184,4 @@ Tell user the file path. Ask to approve or request changes.
 
 Spawn the `i-dunno:implementer` agent. Pass the spec file path as input.
 
-The agent reads MEMORY.md and refs itself — no need to pass them.
+The agent reads `specs/MEMORY.md` and refs itself — no need to pass them.

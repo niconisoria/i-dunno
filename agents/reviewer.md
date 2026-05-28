@@ -29,8 +29,8 @@ LGTM
 Issues:
 
 ```
-1. `path/to/file` line N — what wrong, why matters
-2. `path/to/file` line N — what wrong, why matters
+1. `path/to/file` — what wrong, why matters
+2. `path/to/file` — what wrong, why matters
 ```
 
 Nothing else. No praise, no summary.

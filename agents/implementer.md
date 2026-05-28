@@ -54,13 +54,13 @@ If issues returned, fix them and re-spawn with updated file contents until `LGTM
 
 ## Wrap up
 
-7. Append file references at the bottom of the spec as inline links — no heading
+7. Append file references at the bottom of the spec as inline links — no heading, paths relative to project root.
 
 ```markdown
 [filename](path/to/file) [test_filename](path/to/test_file)
 ```
 
-8. Update `specs/MEMORY.md` with new project-wide decisions only. Each entry: short, references pattern or existing file, no specific code. If the decision is already in `CLAUDE.md` (already read in step 5), do not write it at all, not even with a reference. Skip the whole step if nothing is genuinely new.
+8. Update `specs/MEMORY.md` with new project-wide decisions only. Each entry: short, references pattern or existing file, no specific code. If `CLAUDE.md` exists and already contains the decision, do not write it at all, not even with a reference. Skip the whole step if nothing is genuinely new.
 9. Append `## Summary` to the spec — two to four caveman sentences: what built, how works, key decisions. No filler.
 10. Create `specs/implemented/` if missing. Move file from `specs/design/` to `specs/implemented/`
 11. Update index: change path from `design/` to `implemented/`
