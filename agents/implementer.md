@@ -1,6 +1,6 @@
 ---
 name: implementer
-description: TDD implementation sub-agent. Reads spec + refs + MEMORY.md only. Writes tests, asks user to run, writes code, asks user to run again, wraps up.
+description: TDD implementation sub-agent. Reads spec + refs + MEMORY.md + CLAUDE.md. Writes tests, asks user to run, writes code, asks user to run again, wraps up.
 tools:
   - Read
   - Write
@@ -60,7 +60,7 @@ If issues returned, fix them and re-spawn with updated file contents until `LGTM
 [filename](path/to/file) [test_filename](path/to/test_file)
 ```
 
-8. Update `specs/MEMORY.md` with new project-wide decisions only. Each entry: short, references pattern or existing file, no specific code. If `CLAUDE.md` exists and already contains the decision, do not write it at all, not even with a reference. Skip the whole step if nothing is genuinely new.
+8. Update `specs/MEMORY.md` with new project-wide decisions only. Each entry format: `- key: value` (e.g. `- auth: JWT via lib/auth.rb`, `- error_format: {error: message}`). Reference pattern or existing file; no specific code. If `CLAUDE.md` exists and already contains the decision, do not write it at all. Skip the whole step if nothing is genuinely new.
 9. Append `## Summary` to the spec — two to four caveman sentences: what built, how works, key decisions. No filler.
 10. Create `specs/implemented/` if missing. Move file from `specs/design/` to `specs/implemented/`
 11. Update index: change path from `design/` to `implemented/`

@@ -18,7 +18,7 @@ Specs live in stage directories — `brainstorm/`, `spec/`, `design/`, `implemen
 
 Argument is plain text:
 
-1. Generate a timestamp in `YYYYMMDDHHMMSS` format using the current date and time
+1. Generate a timestamp by running `date +%Y%m%d%H%M%S`
 2. Derive a short title (2–4 words) and slug from the argument text (slug: lowercase words joined by underscores, no special characters, max 5 words). Create `specs/brainstorm/TIMESTAMP_slug.md` with this frontmatter:
 
 ```markdown
@@ -32,7 +32,7 @@ refs: []
 
 ## Existing spec
 
-Argument is a timestamp — run `find specs/ -name "TIMESTAMP*" -type f` to locate the file. The directory it lives in is the current stage:
+Argument is a timestamp — run `find specs/ -name "TIMESTAMP*" -type f 2>/dev/null` to locate the file. If nothing returned, tell user no spec found with that timestamp and stop. The directory it lives in is the current stage:
 
 | Directory | Continue with |
 |---|---|
@@ -57,6 +57,8 @@ One line per spec. Path reflects current stage directory:
 Caveman: terse, no filler, compress aggressively.
 
 ### If `## Brainstorm` already exists in the spec
+
+Check that `specs/INDEX.md` has an entry for this spec — if missing, add it now using the keywords already in the Brainstorm section.
 
 Show it. Ask to approve or request changes.
 
