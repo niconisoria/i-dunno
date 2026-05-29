@@ -146,7 +146,9 @@ Show it. Ask to approve or request changes.
 
 ### If `## Design` is missing
 
-Append a `## Design` section to the spec file.
+Before designing, search for existing files relevant to the spec. Extract key terms (entity names, operations) from the Story section. Run `grep -rl "term" . --exclude-dir=".git"` for each key term to locate relevant existing files. Read the top hits to understand existing patterns.
+
+Then append a `## Design` section to the spec file.
 
 #### Output format
 
