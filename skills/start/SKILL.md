@@ -152,18 +152,17 @@ Then append a `## Design` section to the spec file.
 
 #### Output format
 
-```markdown
+````markdown
 ## Design
 
 ### Flow
 
-┌───────┐     ┌──────────┐     ┌─────────┐
-│ start │ ──▶ │ validate │ ──▶ │ success │
-└───────┘     └──────────┘     └─────────┘
-                   │
-              ┌─────────┐
-              │  error  │
-              └─────────┘
+```mermaid
+flowchart LR
+    A([start]) --> B[validate]
+    B --> C([success])
+    B --> D([error])
+```
 
 ### Data
 
@@ -173,9 +172,9 @@ output: { field: type }
 ### Modules
 
 - `path/to/file` — what changes
-```
+````
 
-One flow diagram only — happy path + main failure path. Use only Unicode box-drawing characters (`┌ ─ ┐ │ └ ┘ ──▶`). No other diagram formats. Data: key inputs and outputs only. Modules: all files that will be created or modified, including test files.
+One flow diagram only — happy path + main failure path. Use a `mermaid` fenced code block — renders in GitHub, VS Code, and most Markdown previewers, and scales to complex flows without breaking alignment. Data: key inputs and outputs only. Modules: all files that will be created or modified, including test files.
 
 Tell user the file path. Ask to approve or request changes.
 
