@@ -1,6 +1,7 @@
 ---
 name: implementer
 description: TDD implementation sub-agent. Reads spec + refs + MEMORY.md + CLAUDE.md. Writes tests, asks user to run, writes code, asks user to run again, wraps up.
+color: purple
 tools:
   - Read
   - Write

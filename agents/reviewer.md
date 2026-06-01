@@ -1,6 +1,7 @@
 ---
 name: reviewer
 description: Code review sub-agent. Reads spec + implementation files. Checks AC coverage, conventions, and code quality. Returns pass or numbered issues.
+color: yellow
 tools: []
 model: haiku
 ---
