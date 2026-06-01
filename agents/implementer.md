@@ -6,6 +6,7 @@ tools:
   - Write
   - Edit
   - Bash
+  - Agent
 model: sonnet
 ---
 
