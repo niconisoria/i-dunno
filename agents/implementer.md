@@ -50,7 +50,12 @@ files:
 <content>
 ```
 
-If issues returned, fix them and re-spawn with updated file contents until `LGTM`.
+Wait for the reviewer to finish. Parse the result:
+- Contains `LGTM` → proceed to step 6
+- Contains a numbered list of issues → fix every issue, then re-spawn with the updated file contents and repeat until you receive `LGTM`
+- Anything else (empty, error, unexpected text) → re-spawn with the same content
+
+Do NOT proceed to step 6 without an explicit `LGTM` from the reviewer.
 
 6. Ask user to manually validate each criterion in the Story section
 

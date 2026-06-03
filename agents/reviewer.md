@@ -21,17 +21,19 @@ Input: inline content block. Fields: `spec:`, `claude_md:`, `memory_md:`, `files
 
 ## Output
 
+Your entire response must be one of these two forms — nothing else, no preamble, no trailing text.
+
 Pass:
 
 ```
 LGTM
 ```
 
-Issues:
+Issues found:
 
 ```
-1. `path/to/file` — what wrong, why matters — `relevant snippet`
-2. `path/to/file` — what wrong, why matters — `relevant snippet`
+1. `path/to/file` — what is wrong, why it matters — `relevant snippet`
+2. `path/to/file` — what is wrong, why it matters — `relevant snippet`
 ```
 
-Nothing else. No praise, no summary.
+Never output both. Never output partial results. Never add praise, summaries, or explanations outside the numbered list.
