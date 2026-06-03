@@ -62,7 +62,7 @@ Check that `specs/INDEX.md` has an entry for this spec — if missing, add it no
 
 Show it. Ask to approve or request changes.
 
-- Approved → move file from `specs/brainstorm/` to `specs/spec/`, update index path, continue with **Spec stage** below
+- Approved → run `bash bin/move-spec <file-path> spec`, continue with **Spec stage** below
 - Changes → edit in place, ask again
 
 ### If `## Brainstorm` is missing
@@ -87,7 +87,7 @@ Omit the `Related:` line if no keyword matches found in the index.
 
 Tell user the file path. Ask to approve or request changes.
 
-- Approved → move file from `specs/brainstorm/` to `specs/spec/`, update index path, continue with **Spec stage** below
+- Approved → run `bash bin/move-spec <file-path> spec`, continue with **Spec stage** below
 - Changes → edit in place, ask again
 
 ---
@@ -100,7 +100,7 @@ Caveman: terse, no filler, compress aggressively.
 
 Show it. Ask to approve or request changes.
 
-- Approved → move file from `specs/spec/` to `specs/design/`, update index path, continue with **Design stage** below
+- Approved → run `bash bin/move-spec <file-path> design`, continue with **Design stage** below
 - Changes → edit in place, ask again
 
 ### If `## Story` is missing
@@ -128,7 +128,7 @@ AC:
 
 Tell user the file path. Ask to approve or request changes.
 
-- Approved → move file from `specs/spec/` to `specs/design/`, update index path and add `refs:` to the index entry if refs were added, continue with **Design stage** below
+- Approved → run `bash bin/move-spec <file-path> design`, add `refs:` to the index entry if refs were added, continue with **Design stage** below
 - Changes → edit in place, ask again
 
 ---

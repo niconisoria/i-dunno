@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Usage: bin/move-spec <spec-file-path> <destination-stage>
+# Example: bin/move-spec specs/brainstorm/20260525143022_foo.md design
+
+if [ $# -ne 2 ]; then
+  echo "Usage: bin/move-spec <spec-file-path> <destination-stage>" >&2
+  exit 1
+fi
+
+FILE="$1"
+DEST_STAGE="$2"
+
+if [ ! -f "$FILE" ]; then
+  echo "Error: file not found: $FILE" >&2
+  exit 1
+fi
+
+FILENAME=$(basename "$FILE")
+DEST_DIR="specs/$DEST_STAGE"
+DEST_FILE="$DEST_DIR/$FILENAME"
+
+mkdir -p "$DEST_DIR"
+mv "$FILE" "$DEST_FILE"
+
+INDEX="specs/INDEX.md"
+if [ -f "$INDEX" ]; then
+  OLD_REL=$(echo "$FILE" | sed 's|^specs/||')
+  NEW_REL="$DEST_STAGE/$FILENAME"
+  sed -i '' "s|$OLD_REL|$NEW_REL|g" "$INDEX"
+fi
+
+echo "$FILE → $DEST_FILE"

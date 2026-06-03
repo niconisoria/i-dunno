@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+RESET='\033[0m'
+
+FRAMEWORK=$(bash bin/detect-framework 2>/dev/null || echo unknown)
+
+case "$FRAMEWORK" in
+  RSpec)          CMD="bundle exec rspec" ;;
+  Minitest)       CMD="bundle exec rails test" ;;
+  jest)           CMD="npx jest" ;;
+  vitest)         CMD="npx vitest run" ;;
+  mocha)          CMD="npx mocha" ;;
+  jasmine)        CMD="npx jasmine" ;;
+  ava)            CMD="npx ava" ;;
+  pytest)         CMD="python -m pytest" ;;
+  "Go test")      CMD="go test ./..." ;;
+  "cargo test")   CMD="cargo test" ;;
+  JUnit)          CMD="mvn test -q" ;;
+  "JUnit 5")      CMD="./gradlew test" ;;
+  Pest)           CMD="./vendor/bin/pest" ;;
+  PHPUnit)        CMD="./vendor/bin/phpunit" ;;
+  ExUnit)         CMD="mix test" ;;
+  "Flutter test") CMD="flutter test" ;;
+  XCTest)         CMD="swift test" ;;
+  ScalaTest)      CMD="sbt test" ;;
+  clojure.test)   CMD="lein test" ;;
+  *)
+    echo "Unknown framework — run tests manually." >&2
+    exit 1
+    ;;
+esac
+
+echo "[$FRAMEWORK] $CMD${*:+ $*}"
+echo "---"
+
+if eval "$CMD${*:+ "$@"}"; then
+  echo -e "\n${GREEN}PASS${RESET}"
+  exit 0
+else
+  echo -e "\n${RED}FAIL${RESET}"
+  exit 1
+fi
