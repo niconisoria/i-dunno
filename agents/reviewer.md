@@ -3,7 +3,7 @@ name: reviewer
 description: Peer code reviewer spawned automatically by the implementer after tests pass. Receives spec, CLAUDE.md, MEMORY.md, and implementation files inline — reads no files itself. Returns exactly LGTM or a numbered issue list, nothing else. Do not invoke directly.
 color: yellow
 tools: []
-model: haiku
+model: sonnet
 ---
 
 # Reviewer
