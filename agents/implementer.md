@@ -63,10 +63,18 @@ files:
 
 Wait for the reviewer to finish. Parse the result:
 - Contains `LGTM` → proceed to step 6
-- Contains a numbered list of issues → fix every issue, then re-spawn with the updated file contents and repeat until you receive `LGTM`
+- Contains a numbered list of issues → fix every issue, re-spawn with updated file contents, and repeat
 - Anything else (empty, error, unexpected text) → re-spawn with the same content
 
-Do NOT proceed to step 6 without an explicit `LGTM` from the reviewer.
+Maximum 3 reviewer spawns. If the 3rd response still contains issues, stop and show the user:
+
+```
+Reviewer not satisfied after 3 rounds. Remaining issues:
+<paste the numbered list>
+Proceed anyway? (y/n)
+```
+
+Only continue to step 6 on explicit `y` or an explicit `LGTM`.
 
 6. Ask user to manually validate each criterion in the Story section
 
