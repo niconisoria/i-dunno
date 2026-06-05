@@ -33,12 +33,12 @@ Check `specs/MEMORY.md` for a framework entry first (format: `- framework: Name`
 ## Test
 
 1. Derive the test file path from the `### Modules` list in the Design section. Write tests from the acceptance criteria in the Story section.
-2. Ask user to run `bash bin/run-tests` — confirm all fail before continuing
+2. Run `bash bin/run-tests`. All tests must fail — if any pass, the test is not specific enough or implementation already exists; fix the tests before continuing.
 
 ## Code
 
-3. Write implementation to make them pass
-4. Ask user to run `bash bin/run-tests` — confirm all pass before continuing
+3. Write implementation to make them pass.
+4. Run `bash bin/run-tests`. All tests must pass — if any fail, fix the implementation and re-run until they do.
 5. Read `CLAUDE.md` (if not already read). Always spawn `i-dunno:reviewer` — pass all content inline in the prompt, not as file paths:
 
 ```
