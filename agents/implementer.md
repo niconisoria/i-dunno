@@ -60,7 +60,7 @@ files:
 
 Wait for the reviewer to finish. Parse the result:
 - Contains `LGTM` → proceed to step 6
-- Contains a numbered list of issues → fix every issue, re-spawn with updated file contents, and repeat
+- Contains a numbered list of issues → fix every issue, then re-spawn. On retry, only include files that changed since the last spawn — omit unchanged files from the payload entirely. Keep `spec:` and `claude_md:` in every spawn.
 - Anything else (empty, error, unexpected text) → re-spawn with the same content
 
 Maximum 3 reviewer spawns. If the 3rd response still contains issues, stop and show the user:
