@@ -17,7 +17,7 @@ Caveman mode: terse, no filler, compress aggressively.
 
 Input: spec file path.
 
-Read `specs/MEMORY.md`, the target spec, and every spec in its `refs` field (paths are relative to `specs/` — prepend `specs/` when reading). Also read each file listed in `### Modules` that already exists on disk — nothing else during setup.
+Read `specs/MEMORY.md`, the target spec, and every spec in its `refs` field (paths are relative to `specs/` — prepend `specs/` when reading). Also read each file listed in `### Modules` that already exists on disk — nothing else during setup. Never read any `bin/` script; execute them directly.
 
 Check `specs/MEMORY.md` for a framework entry first (format: `- framework: Name`) — skip detection if already recorded. Otherwise run `bash bin/detect-framework`. If command not found or returns `unknown`, ask user.
 
