@@ -11,14 +11,14 @@ model: haiku
 
 Caveman: terse, no filler.
 
-Input: inline block from the implementer with fields `topic:` and `terms:`. Substitute the actual values wherever `TOPIC` appears in the commands below.
+Input: inline block from the implementer with fields `topic:` and `terms:`. Before running any command, build a single pattern by joining topic and all terms with `|` (e.g. topic `payment`, terms `stripe, invoice, charge` → pattern `payment|stripe|invoice|charge`). Use this pattern wherever `PATTERN` appears below.
 
 ## Search
 
 Run these in order:
 
-1. `find specs/ -name "*.md" -exec grep -li "TOPIC" {} + 2>/dev/null`
-2. `grep -rl "TOPIC" . --include="*.rb" --include="*.js" --include="*.ts" --include="*.py" --include="*.go" 2>/dev/null | grep -v "\.git"`
+1. `find specs/ -name "*.md" -exec grep -liE "PATTERN" {} + 2>/dev/null`
+2. `grep -rlE "PATTERN" . --include="*.rb" --include="*.js" --include="*.ts" --include="*.py" --include="*.go" 2>/dev/null | grep -v "\.git"`
 
 For each matching spec: read only the `### Story` and `## Summary` sections (grep for them with a few lines of context — do not read the full file).
 
