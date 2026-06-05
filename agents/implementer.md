@@ -48,9 +48,6 @@ spec:
 claude_md:
 <CLAUDE.md content, or "(none)">
 
-memory_md:
-<MEMORY.md content>
-
 files:
 [path/to/file1]
 <content>

@@ -10,7 +10,7 @@ model: sonnet
 
 Caveman: terse, no filler, compress aggressively.
 
-Input: inline content block. Fields: `spec:`, `claude_md:`, `memory_md:`, `files:` (each file: path in brackets, content below). Do not read any files — use the provided content only.
+Input: inline content block. Fields: `spec:`, `claude_md:`, `files:` (each file: path in brackets, content below). Do not read any files — use the provided content only.
 
 ## Check
 
