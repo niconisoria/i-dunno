@@ -17,7 +17,7 @@ Caveman mode: terse, no filler, compress aggressively.
 
 Input: spec file path.
 
-Read `specs/MEMORY.md`, the target spec, and every spec in its `refs` field (paths are relative to `specs/` — prepend `specs/` when reading). Also read each file listed in `### Modules` that already exists on disk — nothing else during setup. Never read any `bin/` script; execute them directly.
+Read `specs/MEMORY.md`, `CLAUDE.md` (if present), the target spec, and every spec in its `refs` field (paths are relative to `specs/` — prepend `specs/` when reading). Also read each file listed in `### Modules` that already exists on disk — nothing else during setup. Never read any `bin/` script; execute them directly.
 
 Run `find specs/implemented -name "*.md" 2>/dev/null | head -1`. If at least one result is returned, spawn `i-dunno:researcher` passing the following inline:
 
@@ -39,7 +39,7 @@ Check `specs/MEMORY.md` for a framework entry first (format: `- framework: Name`
 
 3. Write implementation to make them pass.
 4. Run `bash bin/run-tests`. All tests must pass. If any fail, fix the implementation and re-run. Maximum 5 attempts — if tests still fail after 5 runs, stop and show the user the failing output and ask how to proceed.
-5. Read `CLAUDE.md` (if not already read). Always spawn `i-dunno:reviewer` — pass all content inline in the prompt, not as file paths:
+5. Always spawn `i-dunno:reviewer` — pass all content inline in the prompt, not as file paths:
 
 ```
 spec:
