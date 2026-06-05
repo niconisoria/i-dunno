@@ -11,14 +11,14 @@ model: haiku
 
 Caveman: terse, no filler.
 
-Input: feature name or topic passed inline by the implementer.
+Input: inline block from the implementer with fields `topic:` and `terms:`. Substitute the actual values wherever `TOPIC` appears in the commands below.
 
 ## Search
 
-Run these in order. Use the topic as the search term.
+Run these in order:
 
-1. `find specs/ -name "*.md" 2>/dev/null | xargs grep -li "<topic>" 2>/dev/null`
-2. `grep -rl "<topic>" . --include="*.rb" --include="*.js" --include="*.ts" --include="*.py" --include="*.go" 2>/dev/null | grep -v "spec\|test\|\.git"`
+1. `find specs/ -name "*.md" -exec grep -li "TOPIC" {} + 2>/dev/null`
+2. `grep -rl "TOPIC" . --include="*.rb" --include="*.js" --include="*.ts" --include="*.py" --include="*.go" 2>/dev/null | grep -v "\.git"`
 
 For each matching spec: read only the `### Story` and `## Summary` sections (grep for them with a few lines of context — do not read the full file).
 

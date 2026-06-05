@@ -19,7 +19,14 @@ Input: spec file path.
 
 Read `specs/MEMORY.md`, the target spec, and every spec in its `refs` field (paths are relative to `specs/` — prepend `specs/` when reading). Also read each file listed in `### Modules` that already exists on disk — nothing else during setup. Never read any `bin/` script; execute them directly.
 
-Spawn `i-dunno:researcher` with the feature name and key domain terms from the spec title and Story section. Use its output to inform tests and implementation decisions. Do not read any file it lists — its summary is enough unless a specific detail is missing.
+Spawn `i-dunno:researcher` passing the following inline:
+
+```
+topic: <feature name from the spec title>
+terms: <comma-separated key domain terms extracted from the Story section>
+```
+
+Use its output to inform tests and implementation decisions. Do not read any file it lists — its summary is enough unless a specific detail is missing.
 
 Check `specs/MEMORY.md` for a framework entry first (format: `- framework: Name`) — skip detection if already recorded. Otherwise run `bash bin/detect-framework`. If command not found or returns `unknown`, ask user.
 
@@ -45,11 +52,13 @@ memory_md:
 <MEMORY.md content>
 
 files:
-[path/to/impl_file]
+[path/to/file1]
 <content>
 
-[path/to/test_file]
+[path/to/file2]
 <content>
+
+... (repeat for every file created or modified — not just impl and test)
 ```
 
 Wait for the reviewer to finish. Parse the result:
@@ -72,7 +81,7 @@ Do NOT proceed to step 6 without an explicit `LGTM` from the reviewer.
 8. Update `specs/MEMORY.md` with new project-wide decisions only. Each entry format: `- key: value` (e.g. `- auth: JWT via lib/auth.rb`, `- error_format: {error: message}`). Reference pattern or existing file; no specific code. If `CLAUDE.md` exists and already contains the decision, do not write it at all. Skip the whole step if nothing is genuinely new.
 9. Append `## Summary` to the spec — two to four caveman sentences: what built, how works, key decisions. No filler.
 10. Run `bash bin/move-spec <spec-file-path> implemented`
-12. Print final output — nothing else:
+11. Print final output — nothing else:
 
 ```
 Done
