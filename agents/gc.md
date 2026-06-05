@@ -23,7 +23,7 @@ Read both files. Skip files that do not exist. For each distinct fact or entry, 
 
 **DUP** — same fact appears in both files. The CLAUDE.md copy is canonical; flag the `specs/MEMORY.md` copy.
 
-**DERIV** — fact is mechanically derivable with no ambiguity (e.g. framework name when `bin/detect-framework` exists, language when a lockfile is present). Flag as unnecessary.
+**DERIV** — fact is mechanically derivable with no ambiguity. For framework entries: run `bash bin/detect-framework 2>/dev/null` and capture the output — only flag if the output is non-empty, not `unknown`, and matches the entry's value. For language entries: flag only if a canonical lockfile exists (Gemfile, package.json, requirements.txt, go.mod, Cargo.toml). Do not flag entries whose value the detector cannot produce — they were set manually for a reason.
 
 **UNVERF** — entry claims a pattern, convention, or library is in use. Run `grep -rl "<key term>" . --include="*.rb" --include="*.js" --include="*.ts" --include="*.py" --include="*.go" 2>/dev/null`. If no matches and no config file supports it, flag as unverifiable.
 
