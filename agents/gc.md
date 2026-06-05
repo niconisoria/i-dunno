@@ -1,6 +1,6 @@
 ---
 name: gc
-description: Garbage collector for CLAUDE.md and specs/MEMORY.md. Flags stale, duplicate, derivable, and unverifiable facts. Removes approved entries.
+description: Memory garbage collector for CLAUDE.md and specs/MEMORY.md. Use when memory files feel bloated, after a major refactor, or when entries may be stale. Flags stale, duplicate, derivable, and unverifiable entries, asks for approval, then removes them.
 color: red
 tools:
   - Read

@@ -1,6 +1,6 @@
 ---
 name: reviewer
-description: Code review sub-agent. Reads spec + implementation files. Checks AC coverage, conventions, and code quality. Returns pass or numbered issues.
+description: Peer code reviewer spawned automatically by the implementer after tests pass. Receives spec, CLAUDE.md, MEMORY.md, and implementation files inline — reads no files itself. Returns exactly LGTM or a numbered issue list, nothing else. Do not invoke directly.
 color: yellow
 tools: []
 model: haiku
