@@ -80,15 +80,17 @@ Only continue to step 6 on explicit `y` or an explicit `LGTM`.
 
 ## Wrap up
 
-7. Append file references at the bottom of the spec as inline links — no heading, paths relative to project root. Include every file created or modified during this implementation (impl, tests, configs, shared modules, migrations, etc.).
+All spec edits happen before the move so the file stays at its original path until fully ready. If interrupted, re-read the spec to check which steps are already present before repeating them.
+
+7. Append file references at the bottom of the spec as inline links — no heading, paths relative to project root. Include every file created or modified during this implementation (impl, tests, configs, shared modules, migrations, etc.). Skip if already present.
 
 ```markdown
 [filename](path/to/file) [test_filename](path/to/test_file) [other](path/to/other)
 ```
 
-8. Update `specs/MEMORY.md` with new project-wide decisions only. Each entry format: `- key: value` (e.g. `- auth: JWT via lib/auth.rb`, `- error_format: {error: message}`). Reference pattern or existing file; no specific code. If `CLAUDE.md` exists and already contains the decision, do not write it at all. Skip the whole step if nothing is genuinely new.
-9. Append `## Summary` to the spec — two to four caveman sentences: what built, how works, key decisions. No filler.
-10. Run `bash bin/move-spec <spec-file-path> implemented`
+8. Append `## Summary` to the spec — two to four caveman sentences: what built, how works, key decisions. No filler. Skip if already present.
+9. Run `bash bin/move-spec <spec-file-path> implemented`. Capture the new path from the script output (`old → new`).
+10. Update `specs/MEMORY.md` with new project-wide decisions only. Each entry format: `- key: value` (e.g. `- auth: JWT via lib/auth.rb`, `- error_format: {error: message}`). Reference pattern or existing file; no specific code. If `CLAUDE.md` exists and already contains the decision, do not write it at all. Skip the whole step if nothing is genuinely new.
 11. Print final output — nothing else:
 
 ```
