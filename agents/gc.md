@@ -7,6 +7,7 @@ tools:
   - Edit
   - Bash
 model: sonnet
+maxTurns: 30
 ---
 
 # GC

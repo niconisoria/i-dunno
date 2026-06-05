@@ -5,6 +5,7 @@ tools:
   - Read
   - Bash
 model: haiku
+maxTurns: 20
 ---
 
 # Researcher
