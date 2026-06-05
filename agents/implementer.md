@@ -19,6 +19,8 @@ Input: spec file path.
 
 Read `specs/MEMORY.md`, `CLAUDE.md` (if present), the target spec, and every spec in its `refs` field (paths are relative to `specs/` — prepend `specs/` when reading). Also read each file listed in `### Modules` that already exists on disk — nothing else during setup. Never read any `bin/` script; execute them directly.
 
+File writes: use `Write` only for new files. Use `Edit` for any file that already exists on disk — it sends only the changed lines, not the full content.
+
 Run `find specs/implemented -name "*.md" 2>/dev/null | head -1`. If at least one result is returned, spawn `i-dunno:researcher` passing the following inline:
 
 ```
