@@ -26,7 +26,7 @@ topic: <feature name from the spec title>
 terms: <comma-separated key domain terms extracted from the Story section>
 ```
 
-Use its output to inform tests and implementation decisions. Do not read any file it lists — its summary is enough unless a specific detail is missing.
+Use its output to inform tests and implementation decisions. Do not read any file it lists — its summary is sufficient.
 
 Check `specs/MEMORY.md` for a framework entry first (format: `- framework: Name`) — skip detection if already recorded. Otherwise run `bash bin/detect-framework`. If command not found or returns `unknown`, ask user.
 
@@ -38,7 +38,7 @@ Check `specs/MEMORY.md` for a framework entry first (format: `- framework: Name`
 ## Code
 
 3. Write implementation to make them pass.
-4. Run `bash bin/run-tests`. All tests must pass — if any fail, fix the implementation and re-run until they do.
+4. Run `bash bin/run-tests`. All tests must pass. If any fail, fix the implementation and re-run. Maximum 5 attempts — if tests still fail after 5 runs, stop and show the user the failing output and ask how to proceed.
 5. Read `CLAUDE.md` (if not already read). Always spawn `i-dunno:reviewer` — pass all content inline in the prompt, not as file paths:
 
 ```
@@ -76,22 +76,20 @@ Proceed anyway? (y/n)
 
 Only continue to step 6 on explicit `y` or an explicit `LGTM`.
 
-6. Ask user to manually validate each criterion in the Story section
-
 ## Wrap up
 
 All spec edits happen before the move so the file stays at its original path until fully ready. If interrupted, re-read the spec to check which steps are already present before repeating them.
 
-7. Append file references at the bottom of the spec as inline links — no heading, paths relative to project root. Include every file created or modified during this implementation (impl, tests, configs, shared modules, migrations, etc.). Skip if already present.
+6. Append file references at the bottom of the spec as inline links — no heading, paths relative to project root. Include every file created or modified during this implementation (impl, tests, configs, shared modules, migrations, etc.). Skip if already present.
 
 ```markdown
 [filename](path/to/file) [test_filename](path/to/test_file) [other](path/to/other)
 ```
 
-8. Append `## Summary` to the spec — two to four caveman sentences: what built, how works, key decisions. No filler. Skip if already present.
-9. Run `bash bin/move-spec <spec-file-path> implemented`. Capture the new path from the script output (`old → new`).
-10. Update `specs/MEMORY.md` with new project-wide decisions only. Each entry format: `- key: value` (e.g. `- auth: JWT via lib/auth.rb`, `- error_format: {error: message}`). Reference pattern or existing file; no specific code. If `CLAUDE.md` exists and already contains the decision, do not write it at all. Skip the whole step if nothing is genuinely new.
-11. Print final output — nothing else:
+7. Append `## Summary` to the spec — two to four caveman sentences: what built, how works, key decisions. No filler. Skip if already present.
+8. Run `bash bin/move-spec <spec-file-path> implemented`. Capture the new path from the script output (`old → new`).
+9. Update `specs/MEMORY.md` with new project-wide decisions only. Each entry format: `- key: value` (e.g. `- auth: JWT via lib/auth.rb`, `- error_format: {error: message}`). Reference pattern or existing file; no specific code. If `CLAUDE.md` exists and already contains the decision, do not write it at all. Skip the whole step if nothing is genuinely new.
+10. Print final output — nothing else:
 
 ```
 Done
