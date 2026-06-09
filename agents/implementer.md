@@ -21,7 +21,7 @@ Read `specs/MEMORY.md`, `CLAUDE.md` (if present), the target spec, and every spe
 
 File writes: use `Write` only for new files. Use `Edit` for any file that already exists on disk — it sends only the changed lines, not the full content.
 
-Run `find specs/implemented -name "*.md" 2>/dev/null | head -1`. If at least one result is returned, spawn `i-dunno:researcher` passing the following inline:
+Run `grep -rl "^status: implemented" specs/ 2>/dev/null | head -1`. If at least one result is returned, spawn `i-dunno:researcher` passing the following inline:
 
 ```
 topic: <feature name from the spec title>
@@ -86,13 +86,13 @@ All spec edits happen before the move so the file stays at its original path unt
 ```
 
 7. Append `## Summary` to the spec — two to four caveman sentences: what built, how works, key decisions. No filler. Skip if already present.
-8. Run `bash bin/move-spec <spec-file-path> implemented`. Capture the new path from the script output (`old → new`).
+8. Run `bash bin/advance-spec <spec-file-path> implemented`.
 9. Update `specs/MEMORY.md` with new project-wide decisions only. Each entry format: `- key: value` (e.g. `- auth: JWT via lib/auth.rb`, `- error_format: {error: message}`). Reference pattern or existing file; no specific code. If `CLAUDE.md` exists and already contains the decision, do not write it at all. Skip the whole step if nothing is genuinely new.
 10. Print final output:
 
 ```
 Done
-spec:  <moved spec path>
+spec:  <spec path>
 files: <all touched file paths, one per line, indented>
 ```
 

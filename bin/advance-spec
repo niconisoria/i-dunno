@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Usage: bin/advance-spec <spec-file-path> <new-status>
+if [ $# -ne 2 ]; then
+  echo "Usage: bin/advance-spec <spec-file-path> <new-status>" >&2
+  exit 1
+fi
+
+FILE="$1"
+STATUS="$2"
+
+if [ ! -f "$FILE" ]; then
+  echo "Error: file not found: $FILE" >&2
+  exit 1
+fi
+
+sed -i '' "s/^status: .*/status: $STATUS/" "$FILE"
+echo "ok: $FILE"

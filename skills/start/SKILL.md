@@ -12,18 +12,19 @@ allowed-tools:
 
 > Speak and write everything in caveman style: terse, no filler, compress aggressively. All responses, all markdown files. Why use many token when few token do trick. Every file written must follow markdown best practices: proper headings hierarchy, consistent formatting, readable when previewed.
 
-Specs live in stage directories — `brainstorm/`, `spec/`, `design/`, `implemented/`. The directory is the status. Create a stage directory before writing or moving a file into it if it does not exist.
+All specs live flat in `specs/`. Status tracked in frontmatter `status:` field — never in directory structure.
 
 ## New idea
 
 Argument is plain text:
 
 1. Generate a timestamp by running `date +%Y%m%d%H%M%S`
-2. Derive a short title (2–4 words) and slug from the argument text (slug: lowercase words joined by underscores, no special characters, max 5 words). Create `specs/brainstorm/TIMESTAMP_slug.md` with this frontmatter:
+2. Derive a short title (2–4 words) and slug from the argument text (slug: lowercase words joined by underscores, no special characters, max 5 words). Create `specs/TIMESTAMP_slug.md` with this frontmatter:
 
 ```markdown
 ---
 title: Derived title
+status: brainstorm
 refs: []
 ---
 ```
@@ -32,23 +33,14 @@ refs: []
 
 ## Existing spec
 
-Argument is a timestamp — run `find specs/ -name "TIMESTAMP*" -type f 2>/dev/null` to locate the file. If nothing returned, tell user no spec found with that timestamp and stop. The directory it lives in is the current stage:
+Argument is a timestamp — run `find specs/ -name "TIMESTAMP*" -type f 2>/dev/null` to locate the file. If nothing returned, tell user no spec found with that timestamp and stop. Read the `status:` field from frontmatter to determine current stage:
 
-| Directory | Continue with |
+| status | Continue with |
 |---|---|
-| `specs/brainstorm/` | **Brainstorm stage** below |
-| `specs/spec/` | **Spec stage** below |
-| `specs/design/` | **Design stage** below |
-| `specs/implemented/` | Tell user done. Offer new spec for changes. |
-
-## Index format
-
-One line per spec. Path reflects current stage directory:
-
-```markdown
-brainstorm/20260525143022_slug.md | keyword keyword keyword
-spec/20260525150412_slug.md | keyword keyword keyword | refs:brainstorm/20260525143022_slug.md
-```
+| `brainstorm` | **Brainstorm stage** below |
+| `spec` | **Spec stage** below |
+| `design` | **Design stage** below |
+| `implemented` | Tell user done. Offer new spec for changes. |
 
 ---
 
@@ -58,20 +50,18 @@ Caveman: terse, no filler, compress aggressively.
 
 ### If `## Brainstorm` already exists in the spec
 
-Check that `specs/INDEX.md` has an entry for this spec — if missing, add it now using the keywords already in the Brainstorm section.
-
 Show it. Ask to approve or request changes.
 
-- Approved → run `bash bin/move-spec <file-path> spec`, continue with **Spec stage** below
+- Approved → run `bash bin/advance-spec <file-path> spec`, continue with **Spec stage** below
 - Changes → edit in place, ask again
 
 ### If `## Brainstorm` is missing
 
 Before writing, ask the user up to three short questions to gather more context. Wait for answers.
 
-Then write the `## Brainstorm` section in the spec file. Keep it short — five to ten lines. No implementation details. Cover the problem, scope, constraints, and any related specs found by matching keywords in the index. Do not record open questions — use answers to inform the content only.
+Find related specs by running `grep -rlE "KEYWORDS" specs/ --include="*.md" 2>/dev/null` where KEYWORDS is two to four key terms from the idea joined with `|`. For each match, read only the frontmatter title and first paragraph — do not read full files. Do not record open questions — use answers to inform the content only.
 
-Extract three to five keywords. Add the spec entry to `specs/INDEX.md` with the keywords. Create `specs/INDEX.md` if it does not exist.
+Then write the `## Brainstorm` section in the spec file. Keep it short — five to ten lines. No implementation details. Cover the problem, scope, constraints, and any related specs found above.
 
 #### Output format
 
@@ -80,14 +70,14 @@ Extract three to five keywords. Add the spec entry to `specs/INDEX.md` with the 
 
 Problem. Scope. Constraints.
 
-Related: [title](brainstorm/YYYYMMDDHHMMSS_slug.md)
+Related: [title](YYYYMMDDHHMMSS_slug.md)
 ```
 
-Omit the `Related:` line if no keyword matches found in the index.
+Omit the `Related:` line if no matches found.
 
 Tell user the file path. Ask to approve or request changes.
 
-- Approved → run `bash bin/move-spec <file-path> spec`, continue with **Spec stage** below
+- Approved → run `bash bin/advance-spec <file-path> spec`, continue with **Spec stage** below
 - Changes → edit in place, ask again
 
 ---
@@ -100,12 +90,12 @@ Caveman: terse, no filler, compress aggressively.
 
 Show it. Ask to approve or request changes.
 
-- Approved → run `bash bin/move-spec <file-path> design`, continue with **Design stage** below
+- Approved → run `bash bin/advance-spec <file-path> design`, continue with **Design stage** below
 - Changes → edit in place, ask again
 
 ### If `## Story` is missing
 
-Edit the frontmatter to update the `refs` field with any spec paths found in the `Related` field of the Brainstorm section (YAML inline array of paths relative to `specs/`). Then append a `## Story` section to the spec file.
+Edit the frontmatter to update the `refs` field with any spec paths found in the `Related` field of the Brainstorm section (YAML inline array of filenames relative to `specs/`). Then append a `## Story` section to the spec file.
 
 Describe behavior from the user's point of view — what it does, not how. Each criterion on one line.
 
@@ -114,7 +104,7 @@ Describe behavior from the user's point of view — what it does, not how. Each 
 ```markdown
 ---
 title: Title
-refs: [spec/20260526110000_slug.md, brainstorm/20260526100000_other.md]
+refs: [20260526110000_slug.md, 20260526100000_other.md]
 ---
 
 ## Story
@@ -128,7 +118,7 @@ AC:
 
 Tell user the file path. Ask to approve or request changes.
 
-- Approved → run `bash bin/move-spec <file-path> design`, add `refs:` to the index entry if refs were added, continue with **Design stage** below
+- Approved → run `bash bin/advance-spec <file-path> design`, continue with **Design stage** below
 - Changes → edit in place, ask again
 
 ---
