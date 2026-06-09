@@ -46,8 +46,8 @@ Argument is a timestamp — run `find specs/ -name "TIMESTAMP*" -type f 2>/dev/n
 One line per spec. Path reflects current stage directory:
 
 ```markdown
-[title](brainstorm/20260525143022_slug.md) | keyword keyword keyword
-[title](spec/20260525150412_slug.md) | keyword keyword keyword | refs:[title](brainstorm/20260525143022_slug.md)
+brainstorm/20260525143022_slug.md | keyword keyword keyword
+spec/20260525150412_slug.md | keyword keyword keyword | refs:brainstorm/20260525143022_slug.md
 ```
 
 ---
