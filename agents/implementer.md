@@ -103,8 +103,9 @@ All spec edits happen before the move so the file stays at its original path unt
 ```
 
 7. Append `## Summary` to the spec — two to four caveman sentences: what built, how works, key decisions. No filler. Skip if already present.
-8. Run `bash bin/advance-spec <spec-file-path> implemented`.
-9. Print final output:
+8. Append to `specs/MEMORY.md` (create if absent) any decision rationales from this implementation — only the *why* behind non-obvious choices (e.g. why library X over Y, why this tradeoff). Never write file paths, module names, framework/language entries, or pattern descriptions — those are derivable or belong in CLAUDE.md. Format: `- <topic>: <rationale>`. Skip entirely if no non-obvious decisions were made.
+9. Run `bash bin/advance-spec <spec-file-path> implemented`.
+10. Print final output:
 
 ```
 Done
