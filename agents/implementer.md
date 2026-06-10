@@ -75,6 +75,23 @@ Proceed anyway? (y/n)
 
 Only continue to step 6 on explicit `y` or both returning `LGTM`.
 
+Spawn `i-dunno:docs-writer` passing the following inline:
+
+```
+spec_path: <spec file path>
+
+spec:
+<full spec file content>
+
+files:
+[path/to/file1]
+<content>
+
+... (repeat for every file created or modified)
+```
+
+Wait for it to finish before proceeding.
+
 ## Wrap up
 
 All spec edits happen before the move so the file stays at its original path until fully ready. If interrupted, re-read the spec to check which steps are already present before repeating them.
@@ -92,6 +109,7 @@ All spec edits happen before the move so the file stays at its original path unt
 ```
 Done
 spec:  <spec path>
+docs:  <docs file path>
 files: <all touched file paths, one per line, indented>
 ```
 
