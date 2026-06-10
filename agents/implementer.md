@@ -30,7 +30,7 @@ terms: <comma-separated key domain terms extracted from the Story section>
 
 Use its output to inform tests and implementation decisions. Do not read any file it lists — its summary is sufficient. If it returns `(none)` for both categories, proceed without it.
 
-Check `specs/MEMORY.md` for a framework entry first (format: `- framework: Name`) — skip detection if already recorded. Otherwise run `bash bin/detect-framework`. If command not found or returns `unknown`, ask user.
+Check `CLAUDE.md` for a framework entry (format: `- framework: Name`) — skip detection if already recorded. Otherwise run `bash bin/detect-framework`. If command not found or returns `unknown`, ask user.
 
 ## Test
 

@@ -20,6 +20,8 @@ Scan `CLAUDE.md` (if present) and `specs/MEMORY.md` (if present) for facts that 
 
 Read both files. Skip files that do not exist. For each distinct fact or entry, apply these checks in order — first match wins:
 
+**SCOPE** — entry is in `CLAUDE.md` and is not tech stack, project folder purpose, or an iron-law non-negotiable rule. Feature behaviour, implementation details, and library usage patterns belong in `docs/`, not `CLAUDE.md`. Flag as out-of-scope.
+
 **STALE** — entry names a file path or module. Run `find . -path "*<path>*" -not -path "./.git/*"`. If nothing returned, it is stale.
 
 **DUP** — same fact appears in both files. The CLAUDE.md copy is canonical; flag the `specs/MEMORY.md` copy.
@@ -39,6 +41,7 @@ If a fact passes all checks, skip it — do not list it.
 Print one line per flagged entry:
 
 ```
+SCOPE   CLAUDE.md:12        `Invoices are generated nightly via InvoiceJob` — feature detail, belongs in docs/
 STALE   specs/MEMORY.md:4   `- auth: JWT via lib/auth.rb` — lib/auth.rb not found
 DUP     specs/MEMORY.md:7   `- framework: Rails` — already in CLAUDE.md line 2
 DERIV   specs/MEMORY.md:9   `- test_runner: pytest` — derivable from bin/detect-framework
