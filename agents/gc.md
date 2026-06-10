@@ -18,7 +18,7 @@ Scan `CLAUDE.md`, `docs/MEMORY.md`, `docs/architecture.md`, and `docs/design-sys
 
 ## Scan
 
-Read both files. Skip files that do not exist. For each distinct fact or entry, apply these checks in order — first match wins:
+Read each file. Skip files that do not exist. For each distinct fact or entry, apply these checks in order — first match wins:
 
 **SCOPE** — entry is in `CLAUDE.md` and is not tech stack, project folder purpose, or an iron-law non-negotiable rule. Flag as out-of-scope and suggest the right home: system-wide structural decisions → `docs/architecture.md`; design tokens, color, UI rules → `docs/design-system.md`; decision rationales → `docs/MEMORY.md`; feature-specific details → the relevant spec's `## Summary`.
 

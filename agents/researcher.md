@@ -10,7 +10,7 @@ maxTurns: 20
 
 # Researcher
 
-Caveman: terse, no filler.
+Caveman: terse, no filler, compress aggressively.
 
 Input: inline block from the implementer with fields `topic:` and `terms:`. Before running any command, build a single pattern by joining topic and all terms with `|` (e.g. topic `payment`, terms `stripe, invoice, charge` → pattern `payment|stripe|invoice|charge`). Use this pattern wherever `PATTERN` appears below.
 
