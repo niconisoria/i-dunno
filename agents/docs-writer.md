@@ -17,9 +17,9 @@ Input: inline content block. Fields: `spec_path:`, `spec:`, `files:` (each file:
 
 ## Write
 
-Derive the output path: take the spec filename (without extension), kebab-case it, write to `docs/<name>.md`.
+Derive the output path: take the spec filename (without extension), kebab-case it, write to `docs/guides/<name>.md`.
 
-Check if the file already exists (`bash -c "test -f docs/<name>.md && echo exists"`). If it exists, use Edit to update it. If not, use Write to create it.
+Check if the file already exists (`bash -c "test -f docs/guides/<name>.md && echo exists"`). If it exists, use Edit to update it. If not, use Write to create it.
 
 Content must follow this structure exactly — no other sections, no extra prose:
 
@@ -50,5 +50,5 @@ Skip `## Key decisions` if there are no non-obvious decisions. Skip any file tha
 Print only:
 
 ```
-docs: docs/<name>.md
+docs: docs/guides/<name>.md
 ```

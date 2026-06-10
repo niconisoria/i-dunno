@@ -17,7 +17,13 @@ Caveman mode: terse, no filler, compress aggressively.
 
 Input: spec file path.
 
-Read `specs/MEMORY.md`, `CLAUDE.md` (if present), the target spec, and every spec in its `refs` field (paths are relative to `specs/` — prepend `specs/` when reading). Also read each file listed in `### Modules` that already exists on disk (first 200 lines only — read more only if a specific detail is missing) — nothing else during setup. Never read any `bin/` script; execute them directly.
+Read `docs/MEMORY.md`, `CLAUDE.md` (if present), the target spec, and every spec in its `refs` field (paths are relative to `docs/` — prepend `docs/` when reading). Also read each file listed in `### Modules` that already exists on disk (first 200 lines only — read more only if a specific detail is missing) — nothing else during setup. Never read any `bin/` script; execute them directly.
+
+Spec sections to read and use:
+- `### Story` — acceptance criteria; drives tests
+- `### Architecture` — structural constraints and design decisions; informs implementation shape
+- `### UI` — interface and interaction requirements; informs frontend implementation (skip if absent)
+- `### Design` / `### Modules` — file paths for test derivation
 
 File writes: use `Write` only for new files. Use `Edit` for any file that already exists on disk — it sends only the changed lines, not the full content.
 
@@ -103,7 +109,7 @@ All spec edits happen before the move so the file stays at its original path unt
 ```
 
 7. Append `## Summary` to the spec — two to four caveman sentences: what built, how works, key decisions. No filler. Skip if already present.
-8. Append to `specs/MEMORY.md` (create if absent) any decision rationales from this implementation — only the *why* behind non-obvious choices (e.g. why library X over Y, why this tradeoff). Never write file paths, module names, framework/language entries, or pattern descriptions — those are derivable or belong in CLAUDE.md. Format: `- <topic>: <rationale>`. Skip entirely if no non-obvious decisions were made.
+8. Append to `docs/MEMORY.md` (create if absent) any decision rationales from this implementation — only the *why* behind non-obvious choices (e.g. why library X over Y, why this tradeoff). Never write file paths, module names, framework/language entries, or pattern descriptions — those are derivable or belong in CLAUDE.md. Format: `- <topic>: <rationale>`. Skip entirely if no non-obvious decisions were made.
 9. Run `bash bin/advance-spec <spec-file-path> implemented`.
 10. Print final output:
 

@@ -1,6 +1,6 @@
 ---
 name: gc
-description: Memory garbage collector for CLAUDE.md and specs/MEMORY.md. Use when memory files feel bloated, after a major refactor, or when entries may be stale. Flags stale, duplicate, derivable, and unverifiable entries, asks for approval, then removes them.
+description: Memory garbage collector for CLAUDE.md and docs/MEMORY.md. Use when memory files feel bloated, after a major refactor, or when entries may be stale. Flags stale, duplicate, derivable, and unverifiable entries, asks for approval, then removes them.
 color: red
 tools:
   - Read
@@ -14,7 +14,7 @@ maxTurns: 30
 
 Caveman: terse, no filler, compress aggressively.
 
-Scan `CLAUDE.md` (if present) and `specs/MEMORY.md` (if present) for facts that no longer earn their place.
+Scan `CLAUDE.md` (if present) and `docs/MEMORY.md` (if present) for facts that no longer earn their place.
 
 ## Scan
 
@@ -24,7 +24,7 @@ Read both files. Skip files that do not exist. For each distinct fact or entry, 
 
 **STALE** — entry names a file path or module. Run `find . -path "*<path>*" -not -path "./.git/*"`. If nothing returned, it is stale.
 
-**DUP** — same fact appears in both files. The CLAUDE.md copy is canonical; flag the `specs/MEMORY.md` copy.
+**DUP** — same fact appears in both files. The CLAUDE.md copy is canonical; flag the `docs/MEMORY.md` copy.
 
 **DERIV** — fact is mechanically derivable with no ambiguity. For framework entries: run `bash bin/detect-framework 2>/dev/null` and capture the output — only flag if the output is non-empty, not `unknown`, and matches the entry's value. For language entries: flag only if a canonical lockfile exists (Gemfile, package.json, requirements.txt, go.mod, Cargo.toml). Do not flag entries whose value the detector cannot produce — they were set manually for a reason.
 
@@ -42,9 +42,9 @@ Print one line per flagged entry:
 
 ```
 SCOPE   CLAUDE.md:12        `Invoices are generated nightly via InvoiceJob` — feature detail, belongs in docs/
-STALE   specs/MEMORY.md:4   `- auth: JWT via lib/auth.rb` — lib/auth.rb not found
-DUP     specs/MEMORY.md:7   `- framework: Rails` — already in CLAUDE.md line 2
-DERIV   specs/MEMORY.md:9   `- test_runner: pytest` — derivable from bin/detect-framework
+STALE   docs/MEMORY.md:4   `- auth: JWT via lib/auth.rb` — lib/auth.rb not found
+DUP     docs/MEMORY.md:7   `- framework: Rails` — already in CLAUDE.md line 2
+DERIV   docs/MEMORY.md:9   `- test_runner: pytest` — derivable from bin/detect-framework
 UNVERF  CLAUDE.md:15        `Use service objects for business logic` — no grep match
 ```
 

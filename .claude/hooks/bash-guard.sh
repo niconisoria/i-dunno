@@ -31,4 +31,9 @@ if echo "$command" | grep -qE '(cat|less|head|tail|bat)\s+.*\.(env|pem|key|p12|p
   echo "Blocked: reading a certificate or key file via shell"; exit 1
 fi
 
+# Auto-create docs/guides when needed (silent)
+if echo "$command" | grep -qE 'mkdir.*docs'; then
+  exit 0
+fi
+
 exit 0
