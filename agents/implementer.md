@@ -21,14 +21,14 @@ Read `specs/MEMORY.md`, `CLAUDE.md` (if present), the target spec, and every spe
 
 File writes: use `Write` only for new files. Use `Edit` for any file that already exists on disk — it sends only the changed lines, not the full content.
 
-Run `grep -rl "^status: implemented" specs/ 2>/dev/null | head -1`. If at least one result is returned, spawn `i-dunno:researcher` passing the following inline:
+Spawn `i-dunno:researcher` passing the following inline:
 
 ```
 topic: <feature name from the spec title>
 terms: <comma-separated key domain terms extracted from the Story section>
 ```
 
-Use its output to inform tests and implementation decisions. Do not read any file it lists — its summary is sufficient. If no implemented specs exist, skip the researcher.
+Use its output to inform tests and implementation decisions. Do not read any file it lists — its summary is sufficient. If it returns `(none)` for both categories, proceed without it.
 
 Check `specs/MEMORY.md` for a framework entry first (format: `- framework: Name`) — skip detection if already recorded. Otherwise run `bash bin/detect-framework`. If command not found or returns `unknown`, ask user.
 
@@ -87,19 +87,12 @@ All spec edits happen before the move so the file stays at its original path unt
 
 7. Append `## Summary` to the spec — two to four caveman sentences: what built, how works, key decisions. No filler. Skip if already present.
 8. Run `bash bin/advance-spec <spec-file-path> implemented`.
-9. Update `specs/MEMORY.md` with new project-wide decisions only. Each entry format: `- key: value` (e.g. `- auth: JWT via lib/auth.rb`, `- error_format: {error: message}`). Reference pattern or existing file; no specific code. If `CLAUDE.md` exists and already contains the decision, do not write it at all. Skip the whole step if nothing is genuinely new.
-10. Print final output:
+9. Print final output:
 
 ```
 Done
 spec:  <spec path>
 files: <all touched file paths, one per line, indented>
-```
-
-If step 9 wrote anything to MEMORY.md, append one extra line:
-
-```
-hint:  run @gc to prune stale entries from MEMORY.md
 ```
 
 Ask user to open the spec in their editor.
