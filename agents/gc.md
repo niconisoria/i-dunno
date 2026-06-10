@@ -14,13 +14,13 @@ maxTurns: 30
 
 Caveman: terse, no filler, compress aggressively.
 
-Scan `CLAUDE.md` (if present) and `docs/MEMORY.md` (if present) for facts that no longer earn their place.
+Scan `CLAUDE.md`, `docs/MEMORY.md`, `docs/architecture.md`, and `docs/design-system.md` (each if present) for facts that no longer earn their place.
 
 ## Scan
 
 Read both files. Skip files that do not exist. For each distinct fact or entry, apply these checks in order — first match wins:
 
-**SCOPE** — entry is in `CLAUDE.md` and is not tech stack, project folder purpose, or an iron-law non-negotiable rule. Feature behaviour, implementation details, and library usage patterns belong in `docs/`, not `CLAUDE.md`. Flag as out-of-scope.
+**SCOPE** — entry is in `CLAUDE.md` and is not tech stack, project folder purpose, or an iron-law non-negotiable rule. Flag as out-of-scope and suggest the right home: system-wide structural decisions → `docs/architecture.md`; design tokens, color, UI rules → `docs/design-system.md`; decision rationales → `docs/MEMORY.md`; feature-specific details → the relevant spec's `## Summary`.
 
 **STALE** — entry names a file path or module. Run `find . -path "*<path>*" -not -path "./.git/*"`. If nothing returned, it is stale.
 
@@ -41,7 +41,7 @@ If a fact passes all checks, skip it — do not list it.
 Print one line per flagged entry:
 
 ```
-SCOPE   CLAUDE.md:12        `Invoices are generated nightly via InvoiceJob` — feature detail, belongs in docs/
+SCOPE   CLAUDE.md:12        `Invoices are generated nightly via InvoiceJob` — feature detail, belongs in docs/specs/<spec>.md Summary
 STALE   docs/MEMORY.md:4   `- auth: JWT via lib/auth.rb` — lib/auth.rb not found
 DUP     docs/MEMORY.md:7   `- framework: Rails` — already in CLAUDE.md line 2
 DERIV   docs/MEMORY.md:9   `- test_runner: pytest` — derivable from bin/detect-framework
