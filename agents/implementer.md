@@ -21,11 +21,15 @@ Read `docs/MEMORY.md`, `CLAUDE.md` (if present), the target spec, and every spec
 
 Spec sections to read and use:
 - `### Story` — acceptance criteria; drives tests
-- `### Architecture` — structural constraints and design decisions; informs implementation shape
-- `### UI` — interface and interaction requirements; informs frontend implementation (skip if absent)
+- `### Architecture` — structural constraints and design decisions; informs implementation shape. If absent, treat as `(none)`.
+- `### UI` — interface and interaction requirements; informs frontend implementation. If absent, treat as `(none)`.
 - `### Design` / `### Modules` — file paths for test derivation
 
 File writes: use `Write` only for new files. Use `Edit` for any file that already exists on disk — it sends only the changed lines, not the full content.
+
+Check `CLAUDE.md` for a framework entry (format: `- framework: Name`) — skip detection if already recorded. Otherwise run `bash bin/detect-framework`. If command not found or returns `unknown`, ask user.
+
+Verify `bin/run-tests` exists (`bash -c "test -f bin/run-tests && echo ok"`). If missing, ask user how to run tests before continuing.
 
 Spawn `i-dunno:researcher` passing the following inline:
 
@@ -35,8 +39,6 @@ terms: <comma-separated key domain terms extracted from the Story section>
 ```
 
 Use its output to inform tests and implementation decisions. Do not read any file it lists — its summary is sufficient. If it returns `(none)` for both categories, proceed without it.
-
-Check `CLAUDE.md` for a framework entry (format: `- framework: Name`) — skip detection if already recorded. Otherwise run `bash bin/detect-framework`. If command not found or returns `unknown`, ask user.
 
 ## Test
 
@@ -68,8 +70,8 @@ files:
 
 Wait for both to finish. Collect all issues from both results:
 - Both return `LGTM` → proceed to step 6
-- Either returns a numbered list of issues → fix every issue from both lists, then re-spawn both. On retry, only include files that changed since the last spawn — omit unchanged files from the payload entirely. Keep `spec:` and `claude_md:` in every spawn.
-- Either returns unexpected text (empty, error) → re-spawn that agent with the same content
+- One or both return a numbered list of issues → fix every issue from all lists, then re-spawn only the agents that returned issues (not the ones that returned `LGTM`). On retry, only include files that changed since the last spawn — omit unchanged files from the payload entirely. Keep `spec:` and `claude_md:` in every spawn.
+- Either returns unexpected text (empty, error) → re-spawn that agent only with the same content
 
 Maximum 3 rounds. If the 3rd round still contains issues from either agent, stop and show the user:
 
@@ -80,23 +82,6 @@ Proceed anyway? (y/n)
 ```
 
 Only continue to step 6 on explicit `y` or both returning `LGTM`.
-
-Spawn `i-dunno:docs-writer` passing the following inline:
-
-```
-spec_path: <spec file path>
-
-spec:
-<full spec file content>
-
-files:
-[path/to/file1]
-<content>
-
-... (repeat for every file created or modified)
-```
-
-Wait for it to finish before proceeding.
 
 ## Wrap up
 
@@ -109,6 +94,24 @@ All spec edits happen before the move so the file stays at its original path unt
 ```
 
 7. Append `## Summary` to the spec — two to four caveman sentences: what built, how works, key decisions. No filler. Skip if already present.
+
+Spawn `i-dunno:docs-writer` passing the following inline (after Summary is written so the guide includes it):
+
+```
+spec_path: <spec file path>
+
+spec:
+<full spec file content including the Summary just written>
+
+files:
+[path/to/file1]
+<content>
+
+... (repeat for every file created or modified)
+```
+
+Wait for it to finish before proceeding.
+
 8. Append to `docs/MEMORY.md` (create if absent) any decision rationales from this implementation — only the *why* behind non-obvious choices (e.g. why library X over Y, why this tradeoff). Never write file paths, module names, framework/language entries, or pattern descriptions — those are derivable or belong in CLAUDE.md. Format: `- <topic>: <rationale>`. Skip entirely if no non-obvious decisions were made.
 9. Run `bash bin/advance-spec <spec-file-path> implemented`.
 10. Print final output:

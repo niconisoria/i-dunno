@@ -17,6 +17,8 @@ Input: inline content block. Fields: `spec:`, `claude_md:`, `files:` (each file:
 - ACs: every acceptance criterion in the spec is covered by the implementation
 - Intent: the implementation matches what the Story describes, not just the literal AC wording
 - Edge cases: meaningful edge cases implied by the Story are handled
+- Architecture: if `### Architecture` is present in the spec, verify the implementation respects its structural constraints. If absent, skip this check.
+- UI: if `### UI` is present in the spec, verify the implementation matches its interface requirements. If absent, skip this check.
 - Integration: the feature fits the system described in CLAUDE.md (right module, right layer)
 
 Do not check code quality, security, or style — that is the reviewer's job.
