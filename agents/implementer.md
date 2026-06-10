@@ -41,7 +41,7 @@ Check `CLAUDE.md` for a framework entry (format: `- framework: Name`) — skip d
 
 3. Write implementation to make them pass.
 4. Run `bash bin/run-tests`. All tests must pass. If any fail, fix the implementation and re-run. Maximum 5 attempts — if tests still fail after 5 runs, stop and show the user the failing output and ask how to proceed.
-5. Always spawn `i-dunno:reviewer` — pass all content inline in the prompt, not as file paths:
+5. Spawn `i-dunno:reviewer` and `i-dunno:validator` simultaneously — pass all content inline in the prompt to each, not as file paths:
 
 ```
 spec:
@@ -60,20 +60,20 @@ files:
 ... (repeat for every file created or modified — not just impl and test)
 ```
 
-Wait for the reviewer to finish. Parse the result:
-- Contains `LGTM` → proceed to step 6
-- Contains a numbered list of issues → fix every issue, then re-spawn. On retry, only include files that changed since the last spawn — omit unchanged files from the payload entirely. Keep `spec:` and `claude_md:` in every spawn.
-- Anything else (empty, error, unexpected text) → re-spawn with the same content
+Wait for both to finish. Collect all issues from both results:
+- Both return `LGTM` → proceed to step 6
+- Either returns a numbered list of issues → fix every issue from both lists, then re-spawn both. On retry, only include files that changed since the last spawn — omit unchanged files from the payload entirely. Keep `spec:` and `claude_md:` in every spawn.
+- Either returns unexpected text (empty, error) → re-spawn that agent with the same content
 
-Maximum 3 reviewer spawns. If the 3rd response still contains issues, stop and show the user:
+Maximum 3 rounds. If the 3rd round still contains issues from either agent, stop and show the user:
 
 ```
-Reviewer not satisfied after 3 rounds. Remaining issues:
-<paste the numbered list>
+Review not satisfied after 3 rounds. Remaining issues:
+<paste the combined numbered list>
 Proceed anyway? (y/n)
 ```
 
-Only continue to step 6 on explicit `y` or an explicit `LGTM`.
+Only continue to step 6 on explicit `y` or both returning `LGTM`.
 
 ## Wrap up
 
