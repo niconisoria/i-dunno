@@ -11,7 +11,20 @@
       },
       {
         "matcher": "Bash",
-        "hooks": [{"type": "command", "command": "bash .claude/hooks/bash-guard.sh"}]
+        "hooks": [
+          {"type": "command", "command": "bash .claude/hooks/bash-guard.sh"},
+          {"type": "command", "command": "bash .claude/hooks/commit-guard.sh"}
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [{"type": "command", "command": "bash .claude/hooks/post-edit-tests.sh"}]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [{"type": "command", "command": "bash .claude/hooks/post-edit-tests.sh"}]
       }
     ]
   }
