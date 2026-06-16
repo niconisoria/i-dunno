@@ -4,10 +4,7 @@ set -uo pipefail
 
 input=$(cat)
 
-file_path=$(echo "$input" \
-  | grep -oE '"file_path"[[:space:]]*:[[:space:]]*"[^"]*"' \
-  | grep -oE '"[^"]*"$' \
-  | tr -d '"')
+file_path=$(jq -r '.tool_input.file_path // .file_path // ""' <<< "$input" 2>/dev/null)
 
 [[ -z "$file_path" ]] && exit 0
 

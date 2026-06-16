@@ -4,12 +4,7 @@ set -uo pipefail
 
 input=$(cat)
 
-command=$(python3 -c "
-import sys, json
-d = json.load(sys.stdin)
-ti = d.get('tool_input', d)
-print(ti.get('command', ''))
-" 2>/dev/null <<< "$input")
+command=$(jq -r '.tool_input.command // .command // ""' <<< "$input" 2>/dev/null)
 
 # rm -rf (any flag order combining r and f)
 if echo "$command" | grep -qE 'rm\s+-[a-zA-Z]*rf[a-zA-Z]*|rm\s+-[a-zA-Z]*fr[a-zA-Z]*|rm\s+--recursive\s+--force|rm\s+--force\s+--recursive'; then
@@ -29,11 +24,6 @@ fi
 # Reading sensitive files via shell
 if echo "$command" | grep -qE '(cat|less|head|tail|bat)\s+.*\.(env|pem|key|p12|pfx)\b'; then
   echo "Blocked: reading a certificate or key file via shell"; exit 1
-fi
-
-# Auto-create docs/guides when needed (silent)
-if echo "$command" | grep -qE 'mkdir.*docs'; then
-  exit 0
 fi
 
 exit 0

@@ -15,5 +15,5 @@ if [ ! -f "$FILE" ]; then
   exit 1
 fi
 
-sed -i '' "s/^status: .*/status: $STATUS/" "$FILE"
+sed -i '' "s|^status: .*|status: $STATUS|" "$FILE"
 echo "ok: $FILE"

@@ -36,7 +36,7 @@ esac
 echo "[$FRAMEWORK] $CMD${*:+ $*}"
 echo "---"
 
-if eval "$CMD${*:+ "$@"}"; then
+if bash -c "$CMD $*"; then
   echo -e "\n${GREEN}PASS${RESET}"
   exit 0
 else

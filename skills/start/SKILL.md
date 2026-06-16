@@ -12,14 +12,14 @@ allowed-tools:
 
 > Speak and write everything in caveman style: terse, no filler, compress aggressively. All responses, all markdown files. Why use many token when few token do trick. Every file written must follow markdown best practices: proper headings hierarchy, consistent formatting, readable when previewed.
 
-All specs live flat in `specs/`. Status tracked in frontmatter `status:` field — never in directory structure.
+All specs live flat in `docs/specs/`. Status tracked in frontmatter `status:` field — never in directory structure.
 
 ## New idea
 
 Argument is plain text:
 
 1. Generate a timestamp by running `date +%Y%m%d%H%M%S`
-2. Derive a short title (2–4 words) and slug from the argument text (slug: lowercase words joined by underscores, no special characters, max 5 words). Create `specs/TIMESTAMP_slug.md` with this frontmatter:
+2. Derive a short title (2–4 words) and slug from the argument text (slug: lowercase words joined by underscores, no special characters, max 5 words). Create `docs/specs/TIMESTAMP_slug.md` with this frontmatter:
 
 ```markdown
 ---
@@ -33,7 +33,7 @@ refs: []
 
 ## Existing spec
 
-Argument is a timestamp — run `find specs/ -name "TIMESTAMP*" -type f 2>/dev/null` to locate the file. If nothing returned, tell user no spec found with that timestamp and stop. Read the `status:` field from frontmatter to determine current stage:
+Argument is a timestamp — run `find docs/specs/ -name "TIMESTAMP*" -type f 2>/dev/null` to locate the file. If nothing returned, tell user no spec found with that timestamp and stop. Read the `status:` field from frontmatter to determine current stage:
 
 | status | Continue with |
 |---|---|
@@ -59,7 +59,7 @@ Show it. Ask to approve or request changes.
 
 Before writing, ask the user up to three short questions to gather more context. Wait for answers.
 
-Find related specs by running `grep -rlE "KEYWORDS" specs/ --include="*.md" 2>/dev/null` where KEYWORDS is two to four key terms from the idea joined with `|`. For each match, read only the frontmatter title and first paragraph — do not read full files. Do not record open questions — use answers to inform the content only.
+Find related specs by running `grep -rlE "KEYWORDS" docs/specs/ --include="*.md" 2>/dev/null` where KEYWORDS is two to four key terms from the idea joined with `|`. For each match, read only the frontmatter title and first paragraph — do not read full files. Do not record open questions — use answers to inform the content only.
 
 Then write the `## Brainstorm` section in the spec file. Keep it short — five to ten lines. No implementation details. Cover the problem, scope, constraints, and any related specs found above.
 
@@ -95,7 +95,7 @@ Show it. Ask to approve or request changes.
 
 ### If `## Story` is missing
 
-Edit the frontmatter to update the `refs` field with any spec paths found in the `Related` field of the Brainstorm section (YAML inline array of filenames relative to `specs/`). Then append a `## Story` section to the spec file.
+Edit the frontmatter to update the `refs` field with any spec paths found in the `Related` field of the Brainstorm section (YAML inline array of filenames relative to `docs/specs/`). Then append a `## Story` section to the spec file.
 
 Describe behavior from the user's point of view — what it does, not how. Each criterion on one line.
 
@@ -177,4 +177,4 @@ Tell user the file path. Ask to approve or request changes.
 
 Spawn the `i-dunno:implementer` agent. Pass the spec file path as input.
 
-The agent reads `specs/MEMORY.md` and refs itself — no need to pass them.
+The agent reads `docs/MEMORY.md` and refs itself — no need to pass them.

@@ -70,7 +70,7 @@ files:
 
 Wait for both to finish. Collect all issues from both results:
 - Both return `LGTM` → proceed to step 6
-- One or both return a numbered list of issues → fix every issue from all lists, then re-spawn only the agents that returned issues (not the ones that returned `LGTM`). On retry, only include files that changed since the last spawn — omit unchanged files from the payload entirely. Keep `spec:` and `claude_md:` in every spawn.
+- One or both return a numbered list of issues → fix every issue from all lists, then re-spawn only the agents that returned issues (not the ones that returned `LGTM`). Send the full file set on every spawn — never omit unchanged files. Keep `spec:` and `claude_md:` in every spawn.
 - Either returns unexpected text (empty, error) → re-spawn that agent only with the same content
 
 Maximum 3 rounds. If the 3rd round still contains issues from either agent, stop and show the user:

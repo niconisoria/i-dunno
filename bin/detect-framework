@@ -2,7 +2,13 @@
 set -euo pipefail
 
 if [ -f Gemfile ]; then
-  grep -qi rspec Gemfile && echo RSpec || echo Minitest
+  if grep -qE "gem ['\"]rspec" Gemfile; then
+    echo RSpec
+  elif grep -qE "gem ['\"]minitest" Gemfile; then
+    echo Minitest
+  else
+    echo unknown
+  fi
 elif [ -f package.json ]; then
   node -e "
     const p = require('./package.json');

@@ -4,19 +4,8 @@ set -uo pipefail
 
 input=$(cat)
 
-file_path=$(python3 -c "
-import sys, json
-d = json.load(sys.stdin)
-ti = d.get('tool_input', d)
-print(ti.get('file_path', ''))
-" 2>/dev/null <<< "$input")
-
-content=$(python3 -c "
-import sys, json
-d = json.load(sys.stdin)
-ti = d.get('tool_input', d)
-print(ti.get('content', '') or ti.get('new_string', ''))
-" 2>/dev/null <<< "$input")
+file_path=$(jq -r '.tool_input.file_path // .file_path // ""' <<< "$input" 2>/dev/null)
+content=$(jq -r '.tool_input.content // .tool_input.new_string // .content // .new_string // ""' <<< "$input" 2>/dev/null)
 
 # Block sensitive filenames
 case "$file_path" in
