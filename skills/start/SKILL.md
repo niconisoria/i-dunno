@@ -53,7 +53,7 @@ Caveman: terse, no filler, compress aggressively.
 
 Show it. Ask to approve or request changes.
 
-- Approved → run `bash bin/advance-spec <file-path> spec`, continue with **Spec stage** below
+- Approved → run `sed -i '' "s|^status: .*|status: spec|" <file-path>`, continue with **Spec stage** below
 - Changes → edit in place, ask again
 
 ### If `## Brainstorm` is missing
@@ -78,7 +78,7 @@ Omit the `Related:` line if no matches found.
 
 Tell user the file path. Ask to approve or request changes.
 
-- Approved → run `bash bin/advance-spec <file-path> spec`, continue with **Spec stage** below
+- Approved → run `sed -i '' "s|^status: .*|status: spec|" <file-path>`, continue with **Spec stage** below
 - Changes → edit in place, ask again
 
 ---
@@ -91,7 +91,7 @@ Caveman: terse, no filler, compress aggressively.
 
 Show it. Ask to approve or request changes.
 
-- Approved → run `bash bin/advance-spec <file-path> design`, continue with **Design stage** below
+- Approved → run `sed -i '' "s|^status: .*|status: design|" <file-path>`, continue with **Design stage** below
 - Changes → edit in place, ask again
 
 ### If `## Story` is missing
@@ -119,7 +119,7 @@ AC:
 
 Tell user the file path. Ask to approve or request changes.
 
-- Approved → run `bash bin/advance-spec <file-path> design`, continue with **Design stage** below
+- Approved → run `sed -i '' "s|^status: .*|status: design|" <file-path>`, continue with **Design stage** below
 - Changes → edit in place, ask again
 
 ---

@@ -26,7 +26,7 @@ Read each file. Skip files that do not exist. For each distinct fact or entry, a
 
 **DUP** — same fact appears in both files. The CLAUDE.md copy is canonical; flag the `docs/MEMORY.md` copy.
 
-**DERIV** — fact is mechanically derivable with no ambiguity. For framework entries: run `bash bin/detect-framework 2>/dev/null` and capture the output — only flag if the output is non-empty, not `unknown`, and matches the entry's value. For language entries: flag only if a canonical lockfile exists (Gemfile, package.json, requirements.txt, go.mod, Cargo.toml). Do not flag entries whose value the detector cannot produce — they were set manually for a reason.
+**DERIV** — fact is mechanically derivable with no ambiguity. For framework entries: detect by checking project files (Gemfile content → RSpec/Minitest; package.json devDeps → jest/vitest/mocha/jasmine/ava; pyproject.toml or pytest.ini → pytest; go.mod → Go test; Cargo.toml → cargo test; pom.xml → JUnit; build.gradle → JUnit 5; mix.exs → ExUnit; Package.swift → XCTest) — only flag if the detected value is non-empty, not `unknown`, and matches the entry's value. For language entries: flag only if a canonical lockfile exists (Gemfile, package.json, requirements.txt, go.mod, Cargo.toml). Do not flag entries whose value the detector cannot produce — they were set manually for a reason.
 
 **UNVERF** — entry claims a pattern, convention, or library is in use. For each entry that reaches this check, extract its specific key terms (library names, class names, method names — skip generic words under 5 chars). Run one grep per entry:
 
@@ -44,7 +44,7 @@ Print one line per flagged entry:
 SCOPE   CLAUDE.md:12        `Invoices are generated nightly via InvoiceJob` — feature detail, belongs in docs/specs/<spec>.md Summary
 STALE   docs/MEMORY.md:4   `- auth: JWT via lib/auth.rb` — lib/auth.rb not found
 DUP     docs/MEMORY.md:7   `- framework: Rails` — already in CLAUDE.md line 2
-DERIV   docs/MEMORY.md:9   `- test_runner: pytest` — derivable from bin/detect-framework
+DERIV   docs/MEMORY.md:9   `- test_runner: pytest` — derivable from project files (pyproject.toml present)
 UNVERF  CLAUDE.md:15        `Use service objects for business logic` — no grep match
 ```
 

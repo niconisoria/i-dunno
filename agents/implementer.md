@@ -17,7 +17,7 @@ Caveman mode: terse, no filler, compress aggressively.
 
 Input: spec file path.
 
-Read `docs/MEMORY.md`, `CLAUDE.md` (if present), `docs/architecture.md` (if present), `docs/design-system.md` (if present), the target spec, and every spec in its `refs` field (paths are relative to `docs/specs/` — prepend `docs/specs/` when reading). Also read each file listed in `### Modules` that already exists on disk (first 200 lines only — read more only if a specific detail is missing) — nothing else during setup. Never read any `bin/` script; execute them directly.
+Read `docs/MEMORY.md`, `CLAUDE.md` (if present), `docs/architecture.md` (if present), `docs/design-system.md` (if present), the target spec, and every spec in its `refs` field (paths are relative to `docs/specs/` — prepend `docs/specs/` when reading). Also read each file listed in `### Modules` that already exists on disk (first 200 lines only — read more only if a specific detail is missing) — nothing else during setup.
 
 Spec sections to read and use:
 - `### Story` — acceptance criteria; drives tests
