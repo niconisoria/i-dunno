@@ -18,19 +18,31 @@ def reviewer_contract(output: str) -> dict:
     if text == "LGTM":
         return {"pass": True, "score": 1, "reason": "Returned LGTM."}
 
-    lines = [l for l in text.splitlines() if l.strip()]
-    numbered = [l for l in lines if re.match(r"^\d+\.", l.strip())]
+    lines = [line for line in text.splitlines() if line.strip()]
+    numbered = [line for line in lines if re.match(r"^\d+\.", line.strip())]
 
     if not lines:
         return {"pass": False, "score": 0, "reason": "Empty output."}
 
     if numbered and len(numbered) == len(lines):
-        return {"pass": True, "score": 1, "reason": f"Returned {len(numbered)}-item issue list."}
+        return {
+            "pass": True,
+            "score": 1,
+            "reason": f"Returned {len(numbered)}-item issue list.",
+        }
 
     if "LGTM" in text and numbered:
-        return {"pass": False, "score": 0, "reason": "Mixed LGTM and issue list — must be one or the other."}
+        return {
+            "pass": False,
+            "score": 0,
+            "reason": "Mixed LGTM and issue list — must be one or the other.",
+        }
 
-    return {"pass": False, "score": 0, "reason": "Output is neither LGTM nor a clean numbered list."}
+    return {
+        "pass": False,
+        "score": 0,
+        "reason": "Output is neither LGTM nor a clean numbered list.",
+    }
 
 
 def validator_contract(output: str) -> dict:
@@ -46,14 +58,18 @@ def researcher_format(output: str) -> dict:
     has_files = bool(re.search(r"^files:\s*$", text, re.MULTILINE))
 
     if not has_specs or not has_files:
-        return {"pass": False, "score": 0, "reason": "Missing specs: or files: section header."}
+        return {
+            "pass": False,
+            "score": 0,
+            "reason": "Missing specs: or files: section header.",
+        }
 
     sections = re.split(r"^(specs:|files:)\s*$", text, flags=re.MULTILINE)
     for section in sections:
         section = section.strip()
         if not section or section in ("specs:", "files:"):
             continue
-        lines = [l.strip() for l in section.splitlines() if l.strip()]
+        lines = [line.strip() for line in section.splitlines() if line.strip()]
         for line in lines:
             if not re.match(r"^-\s+\S+.*—.*|^\(none\)$", line):
                 return {

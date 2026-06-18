@@ -7,10 +7,15 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from benchmarks.agent_contracts import researcher_format, reviewer_contract, validator_contract
+from benchmarks.agent_contracts import (
+    researcher_format,
+    reviewer_contract,
+    validator_contract,
+)
 
 
 # ── reviewer_contract ─────────────────────────────────────────────────────────
+
 
 class TestReviewerContract:
     def test_lgtm_passes(self):
@@ -31,7 +36,9 @@ class TestReviewerContract:
         assert r["score"] == 1
 
     def test_single_issue_passes(self):
-        r = reviewer_contract("1. `main.py` — no error handling on file open — `open(path)`")
+        r = reviewer_contract(
+            "1. `main.py` — no error handling on file open — `open(path)`"
+        )
         assert r["pass"] is True
 
     def test_empty_output_fails(self):
@@ -44,15 +51,20 @@ class TestReviewerContract:
         assert r["pass"] is False
 
     def test_prose_explanation_fails(self):
-        r = reviewer_contract("The code looks good overall. There are a few minor issues to consider.")
+        r = reviewer_contract(
+            "The code looks good overall. There are a few minor issues to consider."
+        )
         assert r["pass"] is False
 
     def test_partial_numbered_list_fails(self):
-        r = reviewer_contract("1. `foo.py` — issue here — `x`\nAlso consider refactoring this.")
+        r = reviewer_contract(
+            "1. `foo.py` — issue here — `x`\nAlso consider refactoring this."
+        )
         assert r["pass"] is False
 
 
 # ── validator_contract ────────────────────────────────────────────────────────
+
 
 class TestValidatorContract:
     def test_lgtm_passes(self):
@@ -69,6 +81,7 @@ class TestValidatorContract:
 
 
 # ── researcher_format ─────────────────────────────────────────────────────────
+
 
 class TestResearcherFormat:
     def test_valid_full_output_passes(self):

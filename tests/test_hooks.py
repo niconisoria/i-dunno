@@ -29,10 +29,13 @@ def commit(cmd):
 
 
 def write_file(path, content="safe content"):
-    return run_hook("file-guard.sh", {"tool_input": {"file_path": path, "content": content}})
+    return run_hook(
+        "file-guard.sh", {"tool_input": {"file_path": path, "content": content}}
+    )
 
 
 # ── bash-guard ────────────────────────────────────────────────────────────────
+
 
 class TestBashGuard:
     def test_blocks_rm_rf(self):
@@ -89,6 +92,7 @@ class TestBashGuard:
 
 # ── commit-guard ──────────────────────────────────────────────────────────────
 
+
 class TestCommitGuard:
     def test_blocks_bare_message(self):
         assert commit("git commit -m 'wip'").returncode == 1
@@ -112,10 +116,18 @@ class TestCommitGuard:
         assert commit("git commit -m 'chore: update dependencies'").returncode == 0
 
     def test_allows_refactor_with_scope(self):
-        assert commit("git commit -m 'refactor(hooks): simplify bash-guard pattern'").returncode == 0
+        assert (
+            commit(
+                "git commit -m 'refactor(hooks): simplify bash-guard pattern'"
+            ).returncode
+            == 0
+        )
 
     def test_allows_docs(self):
-        assert commit("git commit -m 'docs(readme): add setup instructions'").returncode == 0
+        assert (
+            commit("git commit -m 'docs(readme): add setup instructions'").returncode
+            == 0
+        )
 
     def test_ignores_non_commit(self):
         assert commit("git status").returncode == 0
@@ -129,6 +141,7 @@ class TestCommitGuard:
 
 
 # ── file-guard ────────────────────────────────────────────────────────────────
+
 
 class TestFileGuard:
     def test_blocks_env_file(self):
@@ -159,16 +172,27 @@ class TestFileGuard:
         assert write_file("bin/detect-framework").returncode == 1
 
     def test_blocks_secret_content_openai_key(self):
-        assert write_file("config.py", "API_KEY = 'sk-abcdefghij1234567890xyz'").returncode == 1
+        assert (
+            write_file("config.py", "API_KEY = 'sk-abcdefghij1234567890xyz'").returncode
+            == 1
+        )
 
     def test_blocks_secret_content_github_token(self):
-        assert write_file("deploy.sh", "TOKEN=ghp_aBcDeFgHiJkLmNoPqRsTuVwXyZ123456").returncode == 1
+        assert (
+            write_file(
+                "deploy.sh", "TOKEN=ghp_aBcDeFgHiJkLmNoPqRsTuVwXyZ123456"
+            ).returncode
+            == 1
+        )
 
     def test_blocks_secret_content_aws_key(self):
         assert write_file("aws.py", "key = 'AKIAIOSFODNN7EXAMPLE'").returncode == 1
 
     def test_blocks_private_key_content(self):
-        assert write_file("key.txt", "-----BEGIN RSA PRIVATE KEY-----\nMIIE...").returncode == 1
+        assert (
+            write_file("key.txt", "-----BEGIN RSA PRIVATE KEY-----\nMIIE...").returncode
+            == 1
+        )
 
     def test_allows_normal_python_file(self):
         assert write_file("src/main.py").returncode == 0
