@@ -4,7 +4,7 @@ set -uo pipefail
 
 input=$(cat)
 
-command=$(jq -r '.tool_input.command // .command // ""' <<< "$input" 2>/dev/null)
+command=$(python3 -c "import json,sys; d=json.loads(sys.argv[1]); print(d.get('tool_input',d).get('command',''))" "$input" 2>/dev/null)
 
 # rm -rf (any flag order combining r and f)
 if echo "$command" | grep -qE 'rm\s+-[a-zA-Z]*rf[a-zA-Z]*|rm\s+-[a-zA-Z]*fr[a-zA-Z]*|rm\s+--recursive\s+--force|rm\s+--force\s+--recursive'; then

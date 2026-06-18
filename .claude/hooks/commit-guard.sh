@@ -5,7 +5,7 @@ set -uo pipefail
 input=$(cat)
 
 # Extract command field from hook JSON
-cmd=$(jq -r '.tool_input.command // .command // ""' <<< "$input" 2>/dev/null)
+cmd=$(python3 -c "import json,sys; d=json.loads(sys.argv[1]); print(d.get('tool_input',d).get('command',''))" "$input" 2>/dev/null)
 
 [[ -z "$cmd" ]] && exit 0
 echo "$cmd" | grep -qE 'git[[:space:]]+commit' || exit 0
