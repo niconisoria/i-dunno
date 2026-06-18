@@ -27,9 +27,26 @@ Spec sections to read and use:
 
 File writes: use `Write` only for new files. Use `Edit` for any file that already exists on disk — it sends only the changed lines, not the full content.
 
-Check `CLAUDE.md` for a framework entry (format: `- framework: Name`) — skip detection if already recorded. Otherwise run `bash bin/detect-framework`. If command not found or returns `unknown`, ask user.
+Check `CLAUDE.md` for a framework entry (format: `- framework: Name`) — skip detection if already recorded. Otherwise detect framework by checking project files in this order:
 
-Verify `bin/run-tests` exists (`bash -c "test -f bin/run-tests && echo ok"`). If missing, ask user how to run tests before continuing.
+| File present | Framework | Test command |
+|---|---|---|
+| `Gemfile` with `rspec` | RSpec | `bundle exec rspec` |
+| `Gemfile` with `minitest` | Minitest | `bundle exec rails test` |
+| `package.json` devDeps has `jest` | jest | `npx jest` |
+| `package.json` devDeps has `vitest` | vitest | `npx vitest run` |
+| `package.json` devDeps has `mocha` | mocha | `npx mocha` |
+| `package.json` devDeps has `jasmine` | jasmine | `npx jasmine` |
+| `package.json` devDeps has `ava` | ava | `npx ava` |
+| `pyproject.toml` or `pytest.ini` or `setup.cfg` | pytest | `python -m pytest` |
+| `go.mod` | Go test | `go test ./...` |
+| `Cargo.toml` | cargo test | `cargo test` |
+| `pom.xml` | JUnit | `mvn test -q` |
+| `build.gradle` or `build.gradle.kts` | JUnit 5 | `./gradlew test` |
+| `mix.exs` | ExUnit | `mix test` |
+| `Package.swift` | XCTest | `swift test` |
+
+If no match, ask the user what command to run tests with. Store the answer in `CLAUDE.md` as `- framework: <Name>` and use the command they provide as `TEST_CMD` for the rest of this session.
 
 Spawn `i-dunno:researcher` passing the following inline:
 
@@ -43,12 +60,12 @@ Use its output to inform tests and implementation decisions. Do not read any fil
 ## Test
 
 1. Derive the test file path from the `### Modules` list in the Design section. Write tests from the acceptance criteria in the Story section.
-2. Run `bash bin/run-tests`. All tests must fail — if any pass, the test is not specific enough or implementation already exists; fix the tests before continuing.
+2. Run `TEST_CMD` (the test command from the detection step above). All tests must fail — if any pass, the test is not specific enough or implementation already exists; fix the tests before continuing.
 
 ## Code
 
 3. Write implementation to make them pass.
-4. Run `bash bin/run-tests`. All tests must pass. If any fail, fix the implementation and re-run. Maximum 5 attempts — if tests still fail after 5 runs, stop and show the user the failing output and ask how to proceed.
+4. Run `TEST_CMD`. All tests must pass. If any fail, fix the implementation and re-run. Maximum 5 attempts — if tests still fail after 5 runs, stop and show the user the failing output and ask how to proceed.
 5. Spawn `i-dunno:reviewer` and `i-dunno:validator` simultaneously — pass all content inline in the prompt to each, not as file paths:
 
 ```
@@ -95,7 +112,7 @@ All spec edits happen before the move so the file stays at its original path unt
 
 7. Append `## Summary` to the spec — two to four caveman sentences: what built, how works, key decisions. No filler. Skip if already present.
 8. Append to `docs/MEMORY.md` (create if absent) any decision rationales from this implementation — only the *why* behind non-obvious choices (e.g. why library X over Y, why this tradeoff). Never write file paths, module names, framework/language entries, or pattern descriptions — those are derivable or belong in CLAUDE.md. Format: `- <topic>: <rationale>`. Skip entirely if no non-obvious decisions were made.
-9. Run `bash bin/advance-spec <spec-file-path> implemented`.
+9. Run `sed -i '' "s|^status: .*|status: implemented|" <spec-file-path>` to advance the spec status.
 10. Print final output:
 
 ```
