@@ -2,7 +2,9 @@
 name: validator
 description: Feature validator spawned automatically by the implementer after tests pass. Checks that every acceptance criterion is implemented and the spec intent is fully met — not code quality. Receives spec, CLAUDE.md, and implementation files inline — reads no files itself. Returns exactly LGTM or a numbered issue list. Do not invoke directly.
 color: blue
-tools: []
+tools:
+  - Read
+  - Bash
 model: sonnet
 ---
 

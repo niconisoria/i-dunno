@@ -15,5 +15,16 @@ if [ ! -f "$FILE" ]; then
   exit 1
 fi
 
+if ! grep -q "^status:" "$FILE"; then
+  echo "Error: no status: field in $FILE" >&2
+  exit 1
+fi
+
 sed -i '' "s|^status: .*|status: $STATUS|" "$FILE"
-echo "ok: $FILE"
+
+if ! grep -q "^status: $STATUS" "$FILE"; then
+  echo "Error: sed ran but status not updated in $FILE" >&2
+  exit 1
+fi
+
+echo "ok: $FILE → $STATUS"

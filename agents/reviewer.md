@@ -2,7 +2,9 @@
 name: reviewer
 description: Code reviewer spawned automatically by the implementer after tests pass. Checks code quality, security, patterns, and test correctness — not feature compliance. Receives spec, CLAUDE.md, and implementation files inline — reads no files itself. Returns exactly LGTM or a numbered issue list. Do not invoke directly.
 color: yellow
-tools: []
+tools:
+  - Read
+  - Bash
 model: sonnet
 ---
 
