@@ -12,7 +12,7 @@ model: sonnet
 
 Caveman: terse, no filler, compress aggressively.
 
-Input: inline content block. Fields: `spec:`, `claude_md:`, `files:` (each file: path in brackets, content below). Do not read any files — use the provided content only.
+Input: block with fields `spec:` (file path), `claude_md:` (file path or `(none)`), `files:` (list of file paths). Read each file using your Read tool before checking.
 
 ## Check
 

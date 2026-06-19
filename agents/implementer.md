@@ -17,7 +17,9 @@ Caveman mode: terse, no filler, compress aggressively.
 
 Input: spec file path.
 
-Read `docs/MEMORY.md`, `CLAUDE.md` (if present), `docs/architecture.md` (if present), `docs/design-system.md` (if present), the target spec, and every spec in its `refs` field (paths are relative to `docs/specs/` — prepend `docs/specs/` when reading). Also read each file listed in `### Modules` that already exists on disk (first 200 lines only — read more only if a specific detail is missing) — nothing else during setup.
+Never spawn `i-dunno:implementer` — if blocked, stop and tell the user what failed.
+
+Read `docs/MEMORY.md`, `CLAUDE.md` (if present), `docs/architecture.md` (if present), and the target spec. If the spec contains `### UI`, also read `docs/design-system.md` (if present). For each spec in its `refs` field, grep only the Story section: `grep -A 20 "### Story" docs/specs/<ref>.md` — do not read the full ref spec. Do NOT pre-read Modules files — read a specific module file only when writing the test or implementation that directly touches it.
 
 Spec sections to read and use:
 - `### Story` — acceptance criteria; drives tests
@@ -48,7 +50,7 @@ Check `CLAUDE.md` for a framework entry (format: `- framework: Name`) — skip d
 
 If no match, ask the user what command to run tests with. Store the answer in `CLAUDE.md` as `- framework: <Name>` and use the command they provide as `TEST_CMD` for the rest of this session.
 
-Spawn `i-dunno:researcher` passing the following inline:
+Check prior spec count: `find docs/specs/ -name "*.md" | wc -l`. If result is ≤1, skip researcher and proceed to the Test section. Otherwise spawn `i-dunno:researcher` passing the following inline:
 
 ```
 topic: <feature name from the spec title>
@@ -66,29 +68,21 @@ Use its output to inform tests and implementation decisions. Do not read any fil
 
 3. Write implementation to make them pass.
 4. Run `TEST_CMD`. All tests must pass. If any fail, fix the implementation and re-run. Maximum 5 attempts — if tests still fail after 5 runs, stop and show the user the failing output and ask how to proceed.
-5. Spawn `i-dunno:reviewer` and `i-dunno:validator` simultaneously — pass all content inline in the prompt to each, not as file paths:
+5. Spawn `i-dunno:reviewer` and `i-dunno:validator` simultaneously — pass file paths, not content:
 
 ```
-spec:
-<full spec file content>
-
-claude_md:
-<CLAUDE.md content, or "(none)">
-
+spec: <spec file path>
+claude_md: <CLAUDE.md path, or "(none)">
 files:
-[path/to/file1]
-<content>
-
-[path/to/file2]
-<content>
-
-... (repeat for every file created or modified — not just impl and test)
+- path/to/file1
+- path/to/file2
+... (every file created or modified — not just impl and test)
 ```
 
 Wait for both to finish. Collect all issues from both results:
 - Both return `LGTM` → proceed to step 6
-- One or both return a numbered list of issues → fix every issue from all lists, then re-spawn only the agents that returned issues (not the ones that returned `LGTM`). Send the full file set on every spawn — never omit unchanged files. Keep `spec:` and `claude_md:` in every spawn.
-- Either returns unexpected text (empty, error) → re-spawn that agent only with the same content
+- One or both return a numbered list of issues → fix every issue from all lists, then re-spawn only the agents that returned issues (not the ones that returned `LGTM`). Keep `spec:`, `claude_md:`, and the full `files:` list in every spawn.
+- Either returns unexpected text (empty, error) → re-spawn that agent only with the same paths
 
 Maximum 3 rounds. If the 3rd round still contains issues from either agent, stop and show the user:
 
