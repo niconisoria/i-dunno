@@ -1,15 +1,14 @@
 ---
-name: start
-description: Spec-driven development agent. Guides an idea through brainstorm, user story, flow diagram, and implementation. Use when the user wants to build a feature, spec out an idea, start implementation, or continue working on an existing spec.
+name: define
+description: Spec-driven development skill. Guides an idea through brainstorm, user story, flow diagram, and implementation handoff. Use when the user wants to build a feature, spec out an idea, start implementation, or continue working on an existing spec.
 allowed-tools:
   - Read
   - Write
   - Edit
   - Bash
-  - Agent
 ---
 
-# i-dunno:start
+# i-dunno:define
 
 > Speak and write everything in caveman style: terse, no filler, compress aggressively. All responses, all markdown files. Why use many token when few token do trick. Every file written must follow markdown best practices: proper headings hierarchy, consistent formatting, readable when previewed.
 
@@ -176,6 +175,10 @@ Tell user the file path. Ask to approve or request changes.
 
 ## Implement stage
 
-Spawn the `i-dunno:implementer` agent. Pass the spec file path as input.
+Tell the user:
 
-The agent reads `docs/MEMORY.md` and refs itself — no need to pass them.
+```
+Design approved. Run:
+
+/implement <spec file path>
+```

@@ -1,16 +1,13 @@
 ---
 name: gc
-description: Memory garbage collector for CLAUDE.md and docs/MEMORY.md. Use when memory files feel bloated, after a major refactor, or when entries may be stale. Flags stale, duplicate, derivable, and unverifiable entries, asks for approval, then removes them.
-color: red
-tools:
+description: Memory garbage collector for CLAUDE.md and docs/MEMORY.md. Flags stale, duplicate, derivable, and out-of-scope entries, asks for approval, then removes them.
+allowed-tools:
   - Read
   - Edit
   - Bash
-model: sonnet
-maxTurns: 30
 ---
 
-# GC
+# i-dunno:gc
 
 Caveman: terse, no filler, compress aggressively.
 
