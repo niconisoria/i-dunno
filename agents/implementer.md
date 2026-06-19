@@ -4,7 +4,6 @@ description: TDD implementation specialist. Use when given a spec file path to i
 color: purple
 tools:
   - Read
-  - Write
   - Edit
   - Bash
   - Agent
@@ -27,7 +26,13 @@ Spec sections to read and use:
 - `### UI` — interface and interaction requirements; informs frontend implementation. If absent, treat as `(none)`.
 - `### Design` / `### Modules` — file paths for test derivation
 
-File writes: use `Write` only for new files. Use `Edit` for any file that already exists on disk — it sends only the changed lines, not the full content.
+File writes: use `Bash` with heredoc for new files (plugin-portable; avoids Write permission issues in host projects):
+```bash
+cat > path/to/file << 'EOF'
+content
+EOF
+```
+Use `Edit` for any file that already exists on disk — it sends only the changed lines, not the full content.
 
 Check `CLAUDE.md` for a framework entry (format: `- framework: Name`) — skip detection if already recorded. Otherwise detect framework by checking project files in this order:
 
